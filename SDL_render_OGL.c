@@ -247,7 +247,5 @@ void inputPoll() {
 			killGame = true;
 	}
 	
-	fprintf(stderr, "Keys: %X\n", input.key);
-	
 	return;
 }

@@ -23,6 +23,8 @@ float	GAMESPEED=15.0;
 #define			VOID			void
 #define			DWORD			int
 
+void killGamePl0x();
+
 
 //-----------------------------------------------------------------------------
 // File: CilloMain.CPP
@@ -297,6 +299,13 @@ bool	werbungaus=false;
 
 
 //--------------------------------------------
+
+
+void killGamePl0x() {
+	/* Stub so far */
+	SDL_Quit();
+}
+
 
 // add Sprite
 void addSprite(Spritelist* newspr) {
@@ -3199,7 +3208,6 @@ void cilloMain() {
 		r1.right=396;
 		r1.top=r.top;
 		r1.bottom=300;
-
 		r2.left=0;
 		r2.right=r.left+236; //234
 		r2.top=r.top;
@@ -3314,6 +3322,10 @@ InitFail(HWND hWnd, HRESULT hRet, LPCTSTR szError,...)
 static void
 UpdateFrame()
 {
+	if (killGame) {
+		killGamePl0x();
+		exit(0);
+	}
 	cilloMain();
 	blitSpielfeld();
 }
