@@ -2589,8 +2589,8 @@ void drawMainMenu(int rx,int ry) {
 				if(input.key & KEY_UP) {newselect-=1;keypressed=true;gamedelete=FALSE;soundtyp=2;}
 				if(input.key & KEY_DOWN) {newselect+=1;keypressed=true;gamedelete=FALSE;soundtyp=2;}
 				if (newselect==7) {
-					if((input.key & KEY_UP) && GAMESPEED>5 ) {GAMESPEED-=1;keypressed=true;soundtyp=1;}
-					if( (input.key & KEY_DOWN) && GAMESPEED<55 ) {GAMESPEED+=1;keypressed=true;soundtyp=1;}
+					if((input.key & KEY_RIGHT) && GAMESPEED>5 ) {GAMESPEED-=1;keypressed=true;soundtyp=1;}
+					if( (input.key & KEY_LEFT) && GAMESPEED<55 ) {GAMESPEED+=1;keypressed=true;soundtyp=1;}
 				}
 				if (newselect==8) {
 					if( (input.key & KEY_X) && MUSIC_OK ) {MUSIC_ON=!MUSIC_ON;keypressed=true;soundtyp=1;}
@@ -2632,6 +2632,7 @@ void drawMainMenu(int rx,int ry) {
 			if (input.key & KEY_X) {
 				if (newselect >=2 && newselect <=6 && !keypressed) {gameselect=newselect-2;soundtyp=1;keypressed=true;}
 			}
+	blitSkull();
 	} else { //show instructions
 			if (!keypressed) {
 					 if (input.key != 0) {
