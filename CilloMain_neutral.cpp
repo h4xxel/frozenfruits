@@ -23,6 +23,8 @@ float	GAMESPEED=15.0;
 #define			VOID			void
 #define			DWORD			int
 
+void killGamePl0x();
+
 
 //-----------------------------------------------------------------------------
 // File: CilloMain.CPP
@@ -77,6 +79,7 @@ bool	killGame=false;
 #include "SDL_render.h"
 INPUT	input;
 VIDEO	video;
+unsigned int frametime;
 
 #include "SDL_render.c"
 //-----------------------------------------------------------------------------
@@ -296,6 +299,13 @@ bool	werbungaus=false;
 
 
 //--------------------------------------------
+
+
+void killGamePl0x() {
+	/* Stub so far */
+	SDL_Quit();
+}
+
 
 // add Sprite
 void addSprite(Spritelist* newspr) {
@@ -2202,6 +2212,10 @@ void moveSpieler(int dx,int dy) {
 // Flip the surfaces
 void FlipScreen( void )
 {
+	#ifndef PANDORA
+		SDL_Delay((20 - (SDL_GetTicks() - frametime) <= 20) ? 20 - (SDL_GetTicks() - frametime) : 0);
+		frametime = SDL_GetTicks();
+	#endif
 	videoSwapBuffers();
 	videoClearScreen();
 /*    HRESULT     ddrval;
@@ -3221,7 +3235,6 @@ void cilloMain() {
 		r1.right=396;
 		r1.top=r.top;
 		r1.bottom=300;
-
 		r2.left=0;
 		r2.right=r.left+236; //234
 		r2.top=r.top;
@@ -3336,6 +3349,10 @@ InitFail(HWND hWnd, HRESULT hRet, LPCTSTR szError,...)
 static void
 UpdateFrame()
 {
+	if (killGame) {
+		killGamePl0x();
+		exit(0);
+	}
 	cilloMain();
 	blitSpielfeld();
 }
@@ -3746,6 +3763,7 @@ int main(int argc, char **argv)
 	tileSurface = videoLoadTexture("assets.bin", 1);
 	background = videoLoadTexture("assets.bin", 2);
 	skullimage = videoLoadTexture("assets.bin", 3);
+	frametime = SDL_GetTicks();
     if (InitApp() != 0)
         return FALSE;
 
