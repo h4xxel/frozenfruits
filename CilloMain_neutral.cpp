@@ -795,12 +795,12 @@ void initSpielfeld() {
 
 /////////////////////////
 // Tile zeichnen
-void blitTile(int x,int y,int tile) {
+void blitTile(int x,int y,int tile, int dex, int dey) {
+	//achtung fulkod
 	RECT tilerect;
 	int tilx,tily;
 	int wall=-1;
 	int BY,BX;
-	int dex,dey;
 	tily=tile/14;
 	tilx=tile-(tily*14);
 //	DDSetColorKey(tileSurface,RGB(255,255,0)); //transparenz
@@ -811,7 +811,7 @@ void blitTile(int x,int y,int tile) {
 
 	// Gamesurface 1-4 aussuchen
 //	gameSurface=gameSurface1;
-	dex=0;dey=0;
+	//dex=scrx;dey=scry;
 	#if 0
 	if (x>=12 && y<10) {/*gameSurface=gameSurface2;*/dex=-396;}
 	else if (x<12 && y>=10) {/*gameSurface=gameSurface3;*/dey=-300;}
@@ -823,7 +823,7 @@ void blitTile(int x,int y,int tile) {
 		tilerect.bottom=tily*30+30;
 		tilerect.left=tilx*33;
 		tilerect.right=tilx*33+33;
-		videoBlit(tileSurface, &tilerect, x*33+dex, y*30+dey);
+		videoBlit(tileSurface, &tilerect, x*33-dex, y*30-dey);
 /*		gameSurface->BltFast(
 		x*33+dex, y*30+dey,  // Upper left xy of destination
 		tileSurface,			// Source surface
@@ -832,9 +832,8 @@ void blitTile(int x,int y,int tile) {
 	}
 	else	// hintergrund zeichnen
 	{
-		fprintf(stderr, "B2\n");
+		dex*=-1; dey*=-1; //fuck yeah
 		if (wall==-1) {
-			fprintf(stderr, "C1\n");
 			x=x*33;
 			y=y*30;
 			tilx=x%99;
@@ -847,7 +846,6 @@ void blitTile(int x,int y,int tile) {
 //			gameSurface->BltFast(x+dex,y+dey,background,&tilerect,DDBLTFAST_WAIT);
 		}
 		else {
-			fprintf(stderr, "C2\n");
 			BY=wall/4;
 			BX=wall-(BY*4);
 			BY*=90;
@@ -1260,7 +1258,7 @@ void blitSpielfeld() {
 	int x,y;
 	for (y=1;y<=20;y++) {
 		for (x=1;x<=24;x++) {
-			blitTile(x-1,y-1,spielfeld[x][y]);			
+			blitTile(x-1,y-1,spielfeld[x][y], scrx, scry);			
 		}
 	}
 }
@@ -1404,7 +1402,7 @@ void killColorblock(int x,int y,float pan) {
 	addSprite(blok); 
 
 	spielfeld[x][y]=34;
-	blitTile(x-1,y-1,34);
+	blitTile(x-1,y-1,34, scrx, scry);
 }
 
 // Zerstöre Startür
@@ -1418,11 +1416,11 @@ int muss[7]={3,5,10,18,24,32,35};
 		killColorblock(lx,ly-30,0.0f);
 		killColorblock(lx,ly+30,0.0f);
 		spielfeld[x][y]=83;
-		blitTile(x-1,y-1,83);
+		blitTile(x-1,y-1,83, scrx, scry);
 		spielfeld[x][y-1]=83;
-		blitTile(x-1,y-2,83);
+		blitTile(x-1,y-2,83, scrx, scry);
 		spielfeld[x][y+1]=83;
-		blitTile(x-1,y,83);	
+		blitTile(x-1,y,83, scrx, scry);
 		starExplo(lx,ly);
 		return TRUE;
 	}
@@ -2049,21 +2047,21 @@ void killSpieler(int dx,int dy) {
 		int a,b;
 		for (b=7;b<=9;b++) {
 			for (a=6;a<=11;a++) {
-				blitTile(a+dx/33,b+dy/30,122);
+				blitTile(a+dx/33,b+dy/30,122, 0, 0);
 			}
 		}
 		for (a=7;a<=11;a++) {
-			blitTile(a+dx/33,6+dy/30,149);
-			blitTile(a+dx/33,10+dy/30,150);
+			blitTile(a+dx/33,6+dy/30,149, 0, 0);
+			blitTile(a+dx/33,10+dy/30,150, 0, 0);
 		}
 		for (b=7;b<=9;b++) {
-			blitTile(6+dx/33,b+dy/30,138);
-			blitTile(12+dx/33,b+dy/30,139);
+			blitTile(6+dx/33,b+dy/30,138, 0, 0);
+			blitTile(12+dx/33,b+dy/30,139, 0, 0);
 		}
-		blitTile(6+dx/33,6+dy/30,151);
-		blitTile(12+dx/33,6+dy/30,152);
-		blitTile(6+dx/33,10+dy/30,153);
-		blitTile(12+dx/33,10+dy/30,195);		
+		blitTile(6+dx/33,6+dy/30,151, 0, 0);
+		blitTile(12+dx/33,6+dy/30,152, 0, 0);
+		blitTile(6+dx/33,10+dy/30,153, 0, 0);
+		blitTile(12+dx/33,10+dy/30,195, 0, 0);		
 		MenuType=FALSE;Menu=TRUE;}//{initSpielfeld();blitSpielfeld();}
 }
 
@@ -2105,7 +2103,7 @@ void moveSpieler(int dx,int dy) {
 	if (startcounter<4) {startcounter+=1;dix=0;}
 	if (bounce==0) {
 		if (input.key & KEY_LEFT) {speedx-=0.5f*framespeed;dix=-1;}
-		if (input.key & KEY_RIGHT) {speedx-=0.5f*framespeed;dix=1;}
+		if (input.key & KEY_RIGHT) {speedx+=0.5f*framespeed;dix=1;}
 /*		if ((diks[203] & 0x80)||(diks[75] & 0x80)) {speedx-=0.5f*framespeed;dix=-1;}
 		if ((diks[205] & 0x80)||(diks[77] & 0x80)) {speedx+=0.5f*framespeed;dix=1;}*/
 		richtungswechsel=FALSE;
@@ -2173,21 +2171,21 @@ void moveSpieler(int dx,int dy) {
 			int x,y;
 			for (y=7;y<=10;y++) {
 				for (x=6;x<=11;x++) {
-					blitTile(x+dx/33,y+dy/30,122);
+					blitTile(x+dx/33,y+dy/30,122, 0, 0);
 				}
 			}
 			for (x=7;x<=11;x++) {
-				blitTile(x+dx/33,6+dy/30,149);
-				blitTile(x+dx/33,11+dy/30,150);
+				blitTile(x+dx/33,6+dy/30,149, 0, 0);
+				blitTile(x+dx/33,11+dy/30,150, 0, 0);
 			}
 			for (y=7;y<=10;y++) {
-				blitTile(6+dx/33,y+dy/30,138);
-				blitTile(12+dx/33,y+dy/30,139);
+				blitTile(6+dx/33,y+dy/30,138, 0, 0);
+				blitTile(12+dx/33,y+dy/30,139, 0, 0);
 			}
-			blitTile(6+dx/33,6+dy/30,151);
-			blitTile(12+dx/33,6+dy/30,152);
-			blitTile(6+dx/33,11+dy/30,153);
-			blitTile(12+dx/33,11+dy/30,195);
+			blitTile(6+dx/33,6+dy/30,151, 0, 0);
+			blitTile(12+dx/33,6+dy/30,152, 0, 0);
+			blitTile(6+dx/33,11+dy/30,153, 0, 0);
+			blitTile(12+dx/33,11+dy/30,195, 0, 0);
 			MenuType=TRUE;
 			Menu=TRUE;
 		}
@@ -3153,7 +3151,7 @@ void cilloMain() {
 					if (!(!showinfo && rxx>=4 && rxx<=10 && ryy>=4 && ryy<=11)) {
 						if (!(!showinfo && rxx>=12 && rxx<=16 && ryy>=5 && ryy<=9)) {
 							spielfeld[rxx+1][ryy+1]=ratil;
-							blitTile(rxx,ryy,ratil);
+							blitTile(rxx,ryy,ratil, 0, 0);
 						}
 					}
 					rxx--;
