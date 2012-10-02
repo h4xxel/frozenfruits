@@ -2295,23 +2295,23 @@ void drawMenu(int rx,int ry) {
 			blitTile2(x*33, y*30, 137);
 		}
 	}*/
-	for (y=6;y<=11;y++) {
+	for (y=7;y<=10;y++) {
 		for (x=7;x<=11;x++) {
 			blitTile2(x*33, y*30, 122);
 		}
 	}
 	for (x=7;x<=11;x++) {
-		blitTile2(x*33, 5*30, 149);
-		blitTile2(x*33, 12*30, 150);
+		blitTile2(x*33, 6*30, 149);
+		blitTile2(x*33, 11*30, 150);
 	}
-	for (y=6;y<=11;y++) {
+	for (y=7;y<=10;y++) {
 		blitTile2(6*33, y*30, 138);
 		blitTile2(12*33, y*30, 139);
 	}
-	blitTile2(6*33, 5*30, 151);
-	blitTile2(12*33, 5*30, 152);
-	blitTile2(6*33, 12*30, 153);
-	blitTile2(12*33, 12*30, 195);
+	blitTile2(6*33, 6*30, 151);
+	blitTile2(12*33, 6*30, 152);
+	blitTile2(6*33, 11*30, 153);
+	blitTile2(12*33, 11*30, 195);
 	//---------------
 	
 	for (i=a;i<=6;i++) {
@@ -3275,7 +3275,7 @@ void cilloMain() {
 		}
 
 		if (Menu) {
-			drawMenu(r.left,r.top);
+			drawMenu(0, 0);
 		}
 		else if (MainMenu) {
 			drawMainMenu(0,0);
