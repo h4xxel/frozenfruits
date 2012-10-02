@@ -2599,7 +2599,7 @@ void drawMainMenu(int rx,int ry) {
 					if( (input.key & KEY_X) && SOUND_OK ) {SOUND_ON=!SOUND_ON;keypressed=true;soundtyp=1;}
 				}
 				if (newselect==10) { //instructions
-					if (input.key && KEY_X) {
+					if (input.key & KEY_X) {
 						int x,y;			
 						for (y=5;y<=12;y++) {
 							for (x=5;x<=11;x++) {
