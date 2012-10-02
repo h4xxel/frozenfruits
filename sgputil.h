@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <zlib.h>
-#include <lzma.h>
+//#include <lzma.h>
 //#include <bzlib.h>
 
 #ifdef TARGET_IS_RETARDED
