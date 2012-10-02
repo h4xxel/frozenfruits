@@ -4,10 +4,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <zlib.h>
-<<<<<<< .merge_file_vuszAl
+<<<<<<< HEAD
 //#include <lzma.h>
 =======
->>>>>>> .merge_file_5fmZIk
+>>>>>>> ad6f539540fcf24e0f34c70a881375226e65bf81
 //#include <bzlib.h>
 
 #ifdef TARGET_IS_RETARDED
