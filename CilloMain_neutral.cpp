@@ -77,6 +77,7 @@ bool	killGame=false;
 #include "SDL_render.h"
 INPUT	input;
 VIDEO	video;
+unsigned int frametime;
 
 #include "SDL_render.c"
 //-----------------------------------------------------------------------------
@@ -2202,6 +2203,10 @@ void moveSpieler(int dx,int dy) {
 // Flip the surfaces
 void FlipScreen( void )
 {
+	#ifndef PANDORA
+		SDL_Delay((20 - (SDL_GetTicks() - frametime) <= 20) ? 20 - (SDL_GetTicks() - frametime) : 0);
+		frametime = SDL_GetTicks();
+	#endif
 	videoSwapBuffers();
 	videoClearScreen();
 /*    HRESULT     ddrval;
@@ -3719,6 +3724,7 @@ int main(int argc, char **argv)
 	tileSurface = videoLoadTexture("assets.bin", 1);
 	background = videoLoadTexture("assets.bin", 2);
 	skullimage = videoLoadTexture("assets.bin", 3);
+	frametime = SDL_GetTicks();
     if (InitApp() != 0)
         return FALSE;
 
