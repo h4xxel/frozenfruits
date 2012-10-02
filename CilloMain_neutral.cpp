@@ -2618,7 +2618,7 @@ void drawMainMenu(int rx,int ry) {
 					}
 				}
 				if (newselect==11) { //end game
-					if (input.key && KEY_X) {
+					if (input.key & KEY_X) {
 						killGame=true;
 					}
 				}
@@ -3181,6 +3181,8 @@ void cilloMain() {
 		if (colreset) {colreset=false;collast=0;}
 
 		if (MainMenu) {
+			scry=0;
+			scrx=13;
 			if (colnow-collast>3500) { //nur alle 3.5 sek. wechsel
 				scry=0;
 				scrx=13;
