@@ -1,0 +1,148 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resrc1.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "resource.h"
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Deutsch (Deutschland) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DEU)
+#ifdef _WIN32
+LANGUAGE LANG_GERMAN, SUBLANG_GERMAN
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// WAV
+//
+
+COLORSWITCH             WAV     DISCARDABLE     "Sounds\\bfire.wav"
+EXPLOSIONFLYER          WAV     DISCARDABLE     "Sounds\\flyerexplode.wav"
+EXPLOSIONBIG            WAV     DISCARDABLE     "Sounds\\bigexplode2.wav"
+EXPLOSIONFEIND          WAV     DISCARDABLE     "Sounds\\boom.wav"
+BOUNCESOUND             WAV     DISCARDABLE     "Sounds\\Bounce.wav"
+COOLMANN                WAV     DISCARDABLE     "Sounds\\Cool_f.wav"
+COOLFRAU                WAV     DISCARDABLE     "Sounds\\Cool.wav"
+TSCHIRP                 WAV     DISCARDABLE     "Sounds\\tschirp6.wav"
+FLUSHSOUND              WAV     DISCARDABLE     "Sounds\\Flush.wav"
+WOOSH                   WAV     DISCARDABLE     "Sounds\\Whoosh.wav"
+BLEEP1                  WAV     DISCARDABLE     "Sounds\\Bleep10.wav"
+BLEEP10                 WAV     DISCARDABLE     "Sounds\\Bleep1.wav"
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resrc1.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""resource.h""\r\n"
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+BACKGROUND              BITMAP  DISCARDABLE     "background_v1-1.bmp"
+SPLASHSCREEN            BITMAP  DISCARDABLE     "Splashscreen_werbung.bmp"
+#endif    // Deutsch (Deutschland) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Deutsch (Österreich) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DEA)
+#ifdef _WIN32
+LANGUAGE LANG_GERMAN, SUBLANG_GERMAN_AUSTRIAN
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+SKULL                   BITMAP  DISCARDABLE     "jetskull_color_231x210.bmp"
+TILEMAP                 BITMAP  DISCARDABLE     "FruitMap_V4.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// MIDI
+//
+
+TRACK01                 MIDI    DISCARDABLE     "MIDI\\techno\\UPII.mid"
+TRACK09                 MIDI    DISCARDABLE     "MIDI\\techno\\chinite2.mid"
+TRACK11                 MIDI    DISCARDABLE     "MIDI\\techno\\dunno.mid"
+TRACK07                 MIDI    DISCARDABLE     "MIDI\\techno\\MAX.mid"
+TRACK06                 MIDI    DISCARDABLE     "MIDI\\techno\\stacid.mid"
+TRACK03                 MIDI    DISCARDABLE     "MIDI\\techno\\techno4.mid"
+TRACK05                 MIDI    DISCARDABLE     "MIDI\\techno\\techno6.mid"
+TRACK10                 MIDI    DISCARDABLE     "MIDI\\techno\\techno8.mid"
+TRACK02                 MIDI    DISCARDABLE     "MIDI\\techno\\techrain.mid"
+TRACK08                 MIDI    DISCARDABLE     "MIDI\\techno\\ugot2.mid"
+TRACK04                 MIDI    DISCARDABLE     "MIDI\\techno\\AnsaRecieva.mid"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// LVL
+//
+
+LEVELS                  LVL     DISCARDABLE     "levels.dat"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON1               ICON    DISCARDABLE     "gameicon.ico"
+#endif    // Deutsch (Österreich) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
