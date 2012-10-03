@@ -1,7 +1,23 @@
 
-
 default:
-	$(CXX) $(CFLAGS) -w -g -O0 -o frozenfruits CilloMain_neutral.cpp sgputil.c -L. -lz -lGL -lSDL `sdl-config --cflags` `sdl-config --libs` -lSDL_mixer
+	mkdir -p bin
+	cd src && make
+	cd tools && make
+	cd res && make
+
+pandora:
+	mkdir -p bin
+	cd src && make pandora
+	cd tools && make
+	cd res && make pandora
+	mksquashfs bin/* frozenfruits.pnd
+	cat res/pandora/PXML.xml >> frozenfruits.pnd
+	cat res/pandora/icon.png >> frozenfruits.pnd
+	rm -Rf bin/*
+	mv frozenfruits.pnd bin/
+
 
 clean:
-	rm -Rf frozenfruits
+	rm -Rf bin
+	cd res && make clean
+	cd tools && make clean

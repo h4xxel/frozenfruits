@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PXML xmlns="http://openpandora.org/namespaces/PXML">
+	<package id="frozenfruits-slaeshjag">
+		<version major="1" minor="4" release="0" build="0"/>
+		<author name="Slaeshjag" website="http://slaeshjag.org" />
+		<titles> 
+			<title lang="en_US">Frozen Fruits</title>
+		</titles>
+		<descriptions>
+			<description lang="en_US">Frozen Fruits is an action-packed puzzle game. Where you destroy blocks by controlling your vertically bouncing ball by controlling its horizontal movement.</description>
+		</descriptions> 
+		<icon src="icon.png" />
+	</package>
+	
+	<application id="frozenfruits-slaeshjag-egegheew" appdata="frozenfruits">
+		<title lang="en_US">Frozen Fruits</title>
+		<description lang="en_US">Frozen Fruits is an action-packed puzzle game. Where you destroy blocks by controlling your vertically bouncing ball by controlling its horizontal movement.</description>
+		<version major="1" minor="4" release="0" build="0"/>
+		<exec command="./run" background="true" standalone="true"/>
+		<author name="Karli Corporation" website="http://www.blueskied.com/" />
+		<icon src="icon.png"/>
+		<categories>
+			<category name="Game">
+				<subcategory name="PuzzleGame" />
+			</category>
+		</categories>
+	</application>
+</PXML>	
