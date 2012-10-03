@@ -17,6 +17,14 @@ pandora:
 	cat res/pandora/icon.png >> frozenfruits.pnd
 	rm -Rf bin/*
 	mv frozenfruits.pnd bin/
+	
+maemo:
+	mkdir -p bin
+	cd src && make maemo
+	cd tools && make
+	cp res/assets_pc.list res/assets.list
+	cd res && make
+
 
 
 clean:

@@ -320,8 +320,10 @@ bool	werbungaus=false;
 void killGamePl0x() {
 	/* Stub so far */
 	Mix_CloseAudio();
+	#ifndef MAEMO
 	while(Mix_Init(0))
 		Mix_Quit();
+	#endif
 	SDL_Quit();
 }
 
@@ -1111,13 +1113,20 @@ void blitInstructions() {
 	blitString("              use the d-pad to move the ball left or right",FALSE);
 	blitString("                thrust - (x)    delete savegame - del",FALSE);
 	blitString("                 back to menu - start",FALSE);
+	#elif defined(MAEMO)
+	blitString("",FALSE);
+	blitString("                          game control",FALSE);
+	blitString("                          ------------",FALSE);
+	blitString("        use the wasd-keys to move the ball left or right",FALSE);
+	blitString("            thrust - space    delete savegame - backspace",FALSE);
+	blitString("                 back to menu - m",FALSE);
 	#else
 	blitString("",FALSE);
 	blitString("                          game control",FALSE);
 	blitString("                          ------------",FALSE);
 	blitString("        use the arrow keys to move the ball left or right",FALSE);
 	blitString("            thrust - space    delete savegame - del",FALSE);
-	blitString("                 back to menu - return",FALSE);
+	blitString("                 back to menu - escape",FALSE);
 	#endif
 
 

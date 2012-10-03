@@ -9,6 +9,9 @@ default:
 pandora:
 	$(CXX) $(CFLAGS) $(TARGET) $(SRC) $(LDFLAGS) -lGLES_CM -lEGL -lX11
 
+maemo:
+	$(CXX) $(CFLAGS) $(TARGET) $(SRC) $(LDFLAGS) -w -g -DMAEMO -DHAVE_GLES `sdl-config --cflags --libs` -lSDL_gles -lEGL -lGLES_CM -lX11
+
 
 clean:
 	rm -Rf bin
