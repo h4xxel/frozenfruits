@@ -13,8 +13,8 @@
 	#define KEYMAP_A SDLK_HOME
 	#define KEYMAP_B SDLK_END
 	//menu keys
-	#define KEYMAP_START SDLK_RALT
-	#define KEYMAP_SELECT SDLK_LALT
+	#define KEYMAP_START SDLK_LALT
+	#define KEYMAP_SELECT SDLK_LCTRL
 #else
 	//movement
 	#define KEYMAP_UP SDLK_UP
@@ -35,5 +35,3 @@ int MUSIC_OK=1;
 int SOUND_OK=1;
 int MUSIC_ON=1;
 int SOUND_ON=1;
-
-#endif
