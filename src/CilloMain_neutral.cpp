@@ -1104,13 +1104,21 @@ void blitInstructions() {
 	blitTile2(200,216,28);blitTile2(240,216,29);blitTile2(280,216,30);blitTile2(320,216,31);
 	blitTile2(360,216,32);blitTile2(400,216,33);
 	blitTile2(436,260,56);
+	#ifdef PANDORA
 	blitString("",FALSE);
-	blitString("                  game control",FALSE);
-	blitString("                  ------------",FALSE);
-	blitString("              Use the DPAD to move the ball left or right",FALSE);
-//	blitString("             right - cursor right,6 on numpad",FALSE);
-	blitString("       thrust - (X)    delete savegame - del",FALSE);
-	blitString("                 back to menu - START",FALSE);
+	blitString("                          game control",FALSE);
+	blitString("                          ------------",FALSE);
+	blitString("              use the d-pad to move the ball left or right",FALSE);
+	blitString("                thrust - (x)    delete savegame - del",FALSE);
+	blitString("                 back to menu - start",FALSE);
+	#else
+	blitString("",FALSE);
+	blitString("                          game control",FALSE);
+	blitString("                          ------------",FALSE);
+	blitString("        use the arrow keys to move the ball left or right",FALSE);
+	blitString("            thrust - space    delete savegame - del",FALSE);
+	blitString("                 back to menu - return",FALSE);
+	#endif
 
 
 }
