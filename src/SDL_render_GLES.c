@@ -44,7 +44,7 @@ int videoInit() {
 		return ERR_OOPS_GENERIC;
 	}
 	
-	if ((video.screen = SDL_SetVideoMode(800, 480, 16, SDL_SWSURFACE | SDL_FULLSCREEN)) == NULL) {
+	if ((video.screen = SDL_SetVideoMode(640, 480, 16, SDL_SWSURFACE | SDL_FULLSCREEN)) == NULL) {
 		fprintf(stderr, "videoInit(): Fatal error: Unable to set up a window for SDL\n");
 		return ERR_OOPS_GENERIC;
 	}
@@ -78,7 +78,7 @@ int videoInit() {
 	
 	SDL_WM_SetCaption("Frozen Fruits", NULL);
 	SDL_WM_SetIcon(SDL_LoadBMP("icon.bmp"), NULL);
-	videoInitGL(800, 480);
+	videoInitGL(640, 480);
 	
 	input.key = 0;
 	
@@ -127,7 +127,7 @@ void videoBlit(TEXTURE tex, RECT *src, int x, int y) {
 	float coords[8];
 	float texcoords[8];
 	
-	x += 80;	
+	//x += 80;	
 	coords[0] = (SCREEN_GRAN_W) * x - 1.0f;
 	coords[1] = 1.0f - (SCREEN_GRAN_H) * y;
 	coords[2] = (SCREEN_GRAN_W) * (src->right-src->left+x) - 1.0f;
