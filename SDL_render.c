@@ -22,6 +22,8 @@ void soundInit() {
 		MUSIC_OK=0;
 		SOUND_OK=0;
 	}
+	
+	Mix_AllocateChannels(8);
 }
 
 void inputPoll() {

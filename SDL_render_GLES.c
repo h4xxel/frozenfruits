@@ -95,22 +95,15 @@ int videoLoop() {
 }
 
 
-TEXTURE videoLoadTexture(const char *fname, int number) {
+TEXTURE videoLoadTexture(void *assets, int number) {
 	void *texdata;
 	unsigned int *data, crap;
 	TEXTURE tex;
 	unsigned int textest;
 
-	assets = snsbbfzOpen(fname);
-	if (assets == NULL) {
-		fprintf(stderr, "Error: Unable to open %s\n");
-		return tex;
-	}
-	
 	data = (unsigned int *) snsbbfzGetData(assets, number, &crap);
-	snsbbfzClose(assets);
 	if (data == NULL) {
-		fprintf(stderr, "Unable to get data entry #%i from file %s\n", number, fname);
+		fprintf(stderr, "Unable to get data entry #%i from assets\n", number);
 		return tex;
 	}
 	
@@ -120,13 +113,10 @@ TEXTURE videoLoadTexture(const char *fname, int number) {
 	
 	glGenTextures(1, &tex.tex);
 	glBindTexture(GL_TEXTURE_2D, tex.tex);
-	fprintf(stderr, "Texture: %i\n", tex.tex);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, data[0], data[1], 0, GL_RGBA, GL_UNSIGNED_BYTE, texdata);
 	free(data);
-	
-	fprintf(stderr, "GLError: %i\n", glGetError());
 	
 	return tex;
 }

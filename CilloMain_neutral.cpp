@@ -92,6 +92,8 @@ int music_current=0;
  ** Stuff used by the SDL/OpenGL conversion
  ****/
 
+void *assets;
+
 Mix_Music *mix_music=NULL;
 
 bool	killGame=false;
@@ -396,15 +398,17 @@ void starExplo(float x,float y) {
 }
 
 // Spiele WAV-Sounds
-void PlayPannedSnd(/*SoundObject* pSound, */float pan ) {
-/*	if (SOUND_OK && SOUND_ON) {
-		DSUtil_PlayPannedSound(pSound,pan);
-	}*/
+void PlayPannedSnd(Mix_Chunk* chunk, float pan ) {
+	if (SOUND_OK && SOUND_ON) {
+		//DSUtil_PlayPannedSound(pSound,pan);
+		Mix_PlayChannel(-1, chunk, 0);
+	}
 }
-void PlayVolFreqSound(/*SoundObject* pSound, */FLOAT fScreenXPos,FLOAT volume,FLOAT freq) {
-/*	if (SOUND_OK && SOUND_ON) {
-		DSUtil_PlayPanVolFreqSound(pSound,fScreenXPos,volume,freq);
-	}*/
+void PlayVolFreqSound(Mix_Chunk* chunk, FLOAT fScreenXPos,FLOAT volume,FLOAT freq) {
+	if (SOUND_OK && SOUND_ON) {
+		//DSUtil_PlayPanVolFreqSound(pSound,fScreenXPos,volume,freq);
+		Mix_PlayChannel(-1, chunk, 0);
+	}
 }
 //------------------
 
@@ -551,9 +555,7 @@ void loadLevels() {
 //	if (hResInfo==NULL) showinfo=true;
 //	hResData = LoadResource( hMod, hResInfo);
 //	pLevels = LockResource( hResData);
-	pLevels = snsbbfzOpen("assets.bin");
-	pLVDat = (char *) snsbbfzGetData(pLevels, 0, (unsigned int *) &sz);
-	snsbbfzClose(pLevels);
+	pLVDat = (char *) snsbbfzGetData(assets, 0, (unsigned int *) &sz);
 	
 	for (int i=1;i<=481*39;i++) {
 		allelevels[i-1]=*pLVDat++;
@@ -1352,8 +1354,8 @@ void killColorblock(int x,int y,float pan) {
 	x=1+x/33;
 	y=1+y/30;
 
-/*	if (spielfeld[x][y]==59) PlayPannedSnd(flushsound,pan);
-	else PlayPannedSnd(explosionflyer,pan);*/
+	if (spielfeld[x][y]==59) PlayPannedSnd(flushsound,pan);
+	else PlayPannedSnd(explosionflyer,pan);
 
 	if (spielfeld[x][y]>=21 && spielfeld[x][y]<=27) {
 		blocks-=1;
@@ -1361,9 +1363,9 @@ void killColorblock(int x,int y,float pan) {
 						rnd=rand()%100;
 						geschafft=TRUE;
 						starExplo(x*33-33,y*30-30);
-/*						if (rnd>85) PlayPannedSnd(tschirp,0.0f);	
+						if (rnd>85) PlayPannedSnd(tschirp,0.0f);	
 						else if (rnd>42) PlayPannedSnd(coolmann,0.0f);
-						else PlayPannedSnd(coolfrau,0.0f);*/
+						else PlayPannedSnd(coolfrau,0.0f);
 						if (actstern!=-1) {
 							savegames[actgame*35+actstern]=0;
 							saveGames();}
@@ -1696,7 +1698,7 @@ void moveSprites() {
 						pan=0.0f;
 						if (x<spielerx-140) pan=-1.0f;
 						else if (x>spielerx+150) pan=1.0f;
-//						PlayPannedSnd(explosionfeind,pan);
+						PlayPannedSnd(explosionfeind,pan);
 					}
 
 					break;
@@ -1888,7 +1890,7 @@ void checkCollision() {
 	if (up==82 || down==82 || rechts==82 || links==82) {
 		if (speedy<1) speedy=1;
 	}
-//	if (soundflag) PlayVolFreqSound(bouncesound,soundpan,-1000,(soundfreq%50)*400);
+	if (soundflag) PlayVolFreqSound(bouncesound,soundpan,-1000,(soundfreq%50)*400);
 	
 	soundflag=FALSE;
 	// Colorchange testen (tiles# 28-33)
@@ -1908,7 +1910,7 @@ void checkCollision() {
 		if (!bombed) {spielercol=down-28;altcol=spielercol;soundflag=TRUE;}
 		else {bomb=FALSE;killColorblock(spielerx+9,spielery+17,0.0f);bombed=FALSE;soundpan=0.0f;}
 	}
-//	if (soundflag) PlayVolFreqSound(colorswitch,soundpan,-1500,0); 
+	if (soundflag) PlayVolFreqSound(colorswitch,soundpan,-1500,0); 
 
 	// Colorblocks + Graublock (# 21-27 + 13)
 	if ((up>=21 && up<=27)||up==13) {
@@ -1963,7 +1965,7 @@ void checkCollision() {
 			soundflag=TRUE;
 		}
 	}
-//	if (soundflag) PlayPannedSnd(explosionbig,soundpan);
+	if (soundflag) PlayPannedSnd(explosionbig,soundpan);
 
 	
 	
@@ -1988,7 +1990,7 @@ void checkCollision() {
 		sprites->c=mitte-46;
 		spielerx=teleportx[mitte-46];spielery=teleporty[mitte-46];
 		sprites->b=1;
-//		PlayPannedSnd(woosh,0.0f);
+		PlayPannedSnd(woosh,0.0f);
 	}
 
 	// Sterntür
@@ -2026,7 +2028,10 @@ void nmeCollision() {
 		}
 		s=s->next;
 	}
-//	if (hit) {exploBall(-1);PlayPannedSnd(explosionbig,0.0f);}
+	if (hit) {
+		exploBall(-1);
+		PlayPannedSnd(explosionbig,0.0f);
+	}
 }
 
 // Spieler Tod
@@ -2453,8 +2458,8 @@ void drawMenu(int rx,int ry) {
 		if (input.key == 0)
 			keypressed=false;
 	}
-//	if (soundtyp==1) PlayPannedSnd(bleep10,0.0f);
-//	if (soundtyp==2) PlayPannedSnd(bleep1,0.0f);
+	if (soundtyp==1) PlayPannedSnd(bleep10,0.0f);
+	if (soundtyp==2) PlayPannedSnd(bleep1,0.0f);
 }
 
 
@@ -2686,9 +2691,9 @@ void drawMainMenu(int rx,int ry) {
 	//blitSkull();
 	
 	// spiele menubeeps
-/*	if (soundtyp==1) PlayPannedSnd(bleep10,0.0f);
+	if (soundtyp==1) PlayPannedSnd(bleep10,0.0f);
 	if (soundtyp==2) PlayPannedSnd(bleep1,0.0f);
-	if (soundtyp==3) PlayPannedSnd(explosionfeind,0.0f);*/
+	if (soundtyp==3) PlayPannedSnd(explosionfeind,0.0f);
 }
 
 /*
@@ -2728,9 +2733,9 @@ void drawFps(LPDIRECTDRAWSURFACE7 ptr,int ox,int oy) {
 void waitforSpace() {
 	BYTE    diks[256];
 //	Keyboard->GetDeviceState( sizeof(diks), &diks );
-	if (spacewait==3 && (input.key & KEY_A)) spacewait=2;
-	else if (spacewait==2 && (input.key & KEY_A)) spacewait=1;
-	else if (spacewait==1 && (input.key ^ KEY_A)) spacewait=0;
+	if (spacewait==3 && (input.key & KEY_X)) spacewait=2;
+	else if (spacewait==2 && (input.key & KEY_X)) spacewait=1;
+	else if (spacewait==1 && (input.key ^ KEY_X)) spacewait=0;
 }
 
 // push SPACE or SHIFT ! zeichnen
@@ -3481,19 +3486,27 @@ void InitializeSound(  )
 		}
 	}*/
 	if (SOUND_OK) {
+		Mix_Chunk **sounds[]={
+			&colorswitch,
+			&explosionflyer,
+			&explosionbig,
+			&explosionfeind,
+			&bouncesound,
+			&coolmann,
+			&coolfrau,
+			&tschirp,
+			&flushsound,
+			&woosh,
+			&bleep1,
+			&bleep10,
+		};
+		int i;
 		unsigned int len;
-		colorswitch = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 3, &len), len), 1);
-		explosionflyer = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 4, &len), len), 1);
-		explosionbig = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 5, &len), len), 1);
-		explosionfeind = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 6, &len), len), 1);
-		bouncesound = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 7, &len), len), 1);
-		coolmann = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 8, &len), len), 1);
-		coolfrau = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 9, &len), len), 1);
-		tschirp = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 10, &len), len), 1);
-		flushsound = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 11, &len), len), 1);
-		woosh = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 12, &len), len), 1);
-		bleep1 = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 13, &len), len), 1);
-		bleep10 = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 14, &len), len), 1);
+		void *p;
+		for(i=0; i<sizeof(sounds)/sizeof(void *); i++) {
+			p=snsbbfzGetData(assets, 4+i, &len);
+			*sounds[i]=Mix_LoadWAV_RW(SDL_RWFromConstMem(p, len), 1);
+		}
 	}
 }
 
@@ -3796,36 +3809,37 @@ int main(int argc, char **argv)
 {
 //    MSG                         msg;
 	
+	assets=snsbbfzOpen("assets.bin");
 	videoInit();
 	soundInit();
-	tileSurface = videoLoadTexture("assets.bin", 1);
-	background = videoLoadTexture("assets.bin", 2);
-	skullimage = videoLoadTexture("assets.bin", 3);
+	InitializeSound();
+	tileSurface = videoLoadTexture(assets, 1);
+	background = videoLoadTexture(assets, 2);
+	skullimage = videoLoadTexture(assets, 3);
 	frametime = SDL_GetTicks();
-    if (InitApp() != 0)
-        return FALSE;
+	if(InitApp() != 0)
+		return FALSE;
 
-	while( 1 )
-	{
-/*      if( PeekMessage( &msg, NULL, 0, 0, PM_NOREMOVE ) )
-      {
-          if( !GetMessage( &msg, NULL, 0, 0 ) )
-          {
-              return msg.wParam;
-          }
-          else {
-              TranslateMessage(&msg);
-              DispatchMessage(&msg);
-          }
-      }
-      else if ( TRUE )
-*/
+	while(1) {
+		/*      if( PeekMessage( &msg, NULL, 0, 0, PM_NOREMOVE ) )
+		      {
+			  if( !GetMessage( &msg, NULL, 0, 0 ) )
+			  {
+			      return msg.wParam;
+			  }
+			  else {
+			      TranslateMessage(&msg);
+			      DispatchMessage(&msg);
+			  }
+		      }
+		      else if ( TRUE )
+		*/
           UpdateFrame();
-  /*    
-      else
-      {
-          WaitMessage();
-      }*/
+	  /*    
+	      else
+	      {
+		  WaitMessage();
+	      }*/
 	}
 
 }
