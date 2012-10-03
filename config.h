@@ -31,7 +31,11 @@
 	#define KEYMAP_SELECT SDLK_F10
 #endif
 
+void *assets;
+
 int MUSIC_OK=1;
 int SOUND_OK=1;
 int MUSIC_ON=1;
 int SOUND_ON=1;
+
+#endif

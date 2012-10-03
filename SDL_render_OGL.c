@@ -49,7 +49,7 @@ int videoLoop() {
 
 
 TEXTURE videoLoadTexture(const char *fname, int number) {
-	void *handle, *texdata;
+	void *texdata;
 	unsigned int *data, crap;
 	TEXTURE textex;
 	unsigned int textest;
@@ -60,14 +60,14 @@ TEXTURE videoLoadTexture(const char *fname, int number) {
 	fprintf(stderr, "Debug: %i\n", textest);
 	//FILE *fp;
 	
-	handle = snsbbfzOpen(fname);
-	if (handle == NULL) {
+	assets = snsbbfzOpen(fname);
+	if (assets == NULL) {
 		fprintf(stderr, "Error: Unable to open %s\n", fname);
 		return textex;
 	}
 	
-	data = (unsigned int *) snsbbfzGetData(handle, number, &crap);
-	snsbbfzClose(handle);
+	data = (unsigned int *) snsbbfzGetData(assets, number, &crap);
+	snsbbfzClose(assets);
 	if (data == NULL) {
 		fprintf(stderr, "Unable to get data entry #%i from file %s\n", number, fname);
 		return textex;

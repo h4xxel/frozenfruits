@@ -30,12 +30,12 @@ int videoInit() {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	
 	if (!(video.XDisplay = XOpenDisplay(NULL))) {
-		fprintf(stderr, "videoInit(): Fatal error: Unable to get a display handle from X\n");
+		fprintf(stderr, "videoInit(): Fatal error: Unable to get a display assets from X\n");
 		return ERR_OOPS_GENERIC;
 	}
 	
 	if (!(video.eglDisplay = eglGetDisplay((EGLNativeDisplayType) video.XDisplay))) {
-		fprintf(stderr, "videoInit(): Fatal error: Unable to get a display handle from EGL\n");
+		fprintf(stderr, "videoInit(): Fatal error: Unable to get a display assets from EGL\n");
 		return ERR_OOPS_GENERIC;
 	}
 	
@@ -56,7 +56,7 @@ int videoInit() {
 	
 	SDL_VERSION(&sysinfo.version);
 	if (SDL_GetWMInfo(&sysinfo) <= 0) {
-		fprintf(stderr, "videoInit(): Fatal error: Unable to get window handle\n");
+		fprintf(stderr, "videoInit(): Fatal error: Unable to get window assets\n");
 		return ERR_OOPS_GENERIC;
 	}
 	
@@ -96,19 +96,19 @@ int videoLoop() {
 
 
 TEXTURE videoLoadTexture(const char *fname, int number) {
-	void *handle, *texdata;
+	void *texdata;
 	unsigned int *data, crap;
 	TEXTURE tex;
 	unsigned int textest;
 
-	handle = snsbbfzOpen(fname);
-	if (handle == NULL) {
+	assets = snsbbfzOpen(fname);
+	if (assets == NULL) {
 		fprintf(stderr, "Error: Unable to open %s\n");
 		return tex;
 	}
 	
-	data = (unsigned int *) snsbbfzGetData(handle, number, &crap);
-	snsbbfzClose(handle);
+	data = (unsigned int *) snsbbfzGetData(assets, number, &crap);
+	snsbbfzClose(assets);
 	if (data == NULL) {
 		fprintf(stderr, "Unable to get data entry #%i from file %s\n", number, fname);
 		return tex;

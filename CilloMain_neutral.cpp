@@ -157,24 +157,24 @@ IDirectMusicSegmentState *pSegState;
 IDirectMusicPerformance* pPerf;
 IDirectMusicLoader* pLoader;
 int actMusic=0;*/
+
+// Sounddaten
+//LPDIRECTSOUND dsound                = NULL;
+Mix_Chunk *colorswitch	   	    = NULL;
+Mix_Chunk *titelmelodie			= NULL;
+Mix_Chunk *explosionflyer			= NULL;
+Mix_Chunk *explosionbig			= NULL;
+Mix_Chunk *explosionfeind			= NULL;
+Mix_Chunk *bouncesound			= NULL;
+Mix_Chunk *coolmann				= NULL;
+Mix_Chunk *coolfrau				= NULL;
+Mix_Chunk *tschirp				= NULL;
+Mix_Chunk *flushsound				= NULL;
+Mix_Chunk *woosh					= NULL;
+Mix_Chunk *bleep1					= NULL;
+Mix_Chunk *bleep10				= NULL;
+
 /*
-/// Sounddaten
-LPDIRECTSOUND dsound                = NULL;
-SoundObject *colorswitch	   	    = NULL;
-SoundObject *titelmelodie			= NULL;
-SoundObject *explosionflyer			= NULL;
-SoundObject *explosionbig			= NULL;
-SoundObject *explosionfeind			= NULL;
-SoundObject *bouncesound			= NULL;
-SoundObject *coolmann				= NULL;
-SoundObject *coolfrau				= NULL;
-SoundObject *tschirp				= NULL;
-SoundObject *flushsound				= NULL;
-SoundObject *woosh					= NULL;
-SoundObject *bleep1					= NULL;
-SoundObject *bleep10				= NULL;
-
-
 // Input
 IDirectInput*	            dinpt = NULL;
 IDirectInputDevice*			Mouse = NULL;
@@ -3427,7 +3427,7 @@ WindowProc()
 
 			
         case WM_KEYDOWN:
-            // Handle any non-accelerated key commands
+            // assets any non-accelerated key commands
             switch (wParam)
             {
                 case VK_F12:
@@ -3479,21 +3479,22 @@ void InitializeSound(  )
 			dsound = NULL;
 			SOUND_OK=false;
 		}
-	}
+	}*/
 	if (SOUND_OK) {
-		colorswitch = DSUtil_CreateSound(dsound,"COLORSWITCH",1);
-		explosionflyer = DSUtil_CreateSound(dsound,"EXPLOSIONFLYER",3);
-		explosionbig = DSUtil_CreateSound(dsound,"EXPLOSIONBIG",1);
-		explosionfeind = DSUtil_CreateSound(dsound,"EXPLOSIONFEIND",4);
-		bouncesound = DSUtil_CreateSound(dsound,"BOUNCESOUND",2);
-		coolmann = DSUtil_CreateSound(dsound,"COOLMANN",1);
-		coolfrau = DSUtil_CreateSound(dsound,"COOLFRAU",1);
-		tschirp = DSUtil_CreateSound(dsound,"TSCHIRP",1);
-		flushsound = DSUtil_CreateSound(dsound,"FLUSHSOUND",3);
-		woosh = DSUtil_CreateSound(dsound,"WOOSH",1);
-		bleep1 = DSUtil_CreateSound(dsound,"BLEEP1",3);
-		bleep10 = DSUtil_CreateSound(dsound,"BLEEP10",2);
-	}   */
+		unsigned int len;
+		colorswitch = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 3, &len), len), 1);
+		explosionflyer = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 4, &len), len), 1);
+		explosionbig = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 5, &len), len), 1);
+		explosionfeind = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 6, &len), len), 1);
+		bouncesound = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 7, &len), len), 1);
+		coolmann = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 8, &len), len), 1);
+		coolfrau = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 9, &len), len), 1);
+		tschirp = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 10, &len), len), 1);
+		flushsound = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 11, &len), len), 1);
+		woosh = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 12, &len), len), 1);
+		bleep1 = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 13, &len), len), 1);
+		bleep10 = Mix_LoadWAV_RW(SDL_RWFromConstMem(snsbbfzGetData(assets, 14, &len), len), 1);
+	}
 }
 
 

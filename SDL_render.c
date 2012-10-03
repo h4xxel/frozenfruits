@@ -14,7 +14,7 @@ void soundInit() {
 		printf("Will run without music\n");
 		MUSIC_OK=0;
 	}*/
-	if(Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 1, 1024)) {
+	if(Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024)) {
 		printf("Mix_OpenAudio: Failed to open audio device!\n");
 		printf("Mix_OpenAudio: %s\n", Mix_GetError());
 		printf("Will run without music\n");
