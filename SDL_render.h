@@ -1,3 +1,5 @@
+#include "config.h"
+
 #ifdef HAVE_GLES
 	#include "SDL_render_GLES.h"
 #else

@@ -2364,7 +2364,7 @@ void drawMenu(int rx,int ry) {
 //	Keyboard->GetDeviceState( sizeof(diks), &diks );
 	if (!keypressed) {
 		if (newselect==0) {	//continue game
-			if (input.key & KEY_X) {
+			if (input.key & KEY_A) {
 				Menu=FALSE;MainMenu=FALSE;Maininit=FALSE;blitSpielfeld();
 				newselect=15;
 				keypressed=true;
@@ -2373,7 +2373,7 @@ void drawMenu(int rx,int ry) {
 			}
 		}
 		if (newselect==1) {	//restart level
-			if (input.key & KEY_X) { 
+			if (input.key & KEY_A) { 
 				restart=TRUE;
 				Menu=FALSE;MainMenu=FALSE;Maininit=FALSE;
 				newselect=15;
@@ -2384,7 +2384,7 @@ void drawMenu(int rx,int ry) {
 		}
 		bool leavgam=false;
 		if (newselect==2) { //leave level
-			if (input.key & KEY_X) { 
+			if (input.key & KEY_A) { 
 				if (actlevel>4) {
 					actlevel=oldlevel;
 					Menu=FALSE;MainMenu=FALSE;Maininit=FALSE;
@@ -2402,7 +2402,7 @@ void drawMenu(int rx,int ry) {
 			if((input.key & KEY_LEFT) && GAMESPEED<55 ) {GAMESPEED+=1;keypressed=true;soundtyp=1;}
 		}
 		if (newselect==4) { //music on/off
-			if((input.key & KEY_X) && SOUND_OK) {MUSIC_ON=!MUSIC_ON;keypressed=true;soundtyp=1;}
+			if((input.key & KEY_A) && SOUND_OK) {MUSIC_ON=!MUSIC_ON;keypressed=true;soundtyp=1;}
 /*			else if( (diks[203] & 0x80) && MUSIC_OK ) {MUSIC_ON=!MUSIC_ON;keypressed=true;soundtyp=1;}
 			else if( (diks[75] & 0x80) && MUSIC_OK ) {MUSIC_ON=!MUSIC_ON;keypressed=true;soundtyp=1;}
 			else if( (diks[77] & 0x80) && MUSIC_OK ) {MUSIC_ON=!MUSIC_ON;keypressed=true;soundtyp=1;}
@@ -2411,7 +2411,7 @@ void drawMenu(int rx,int ry) {
 			}*/
 		}
 		if (newselect==5) { //sound on/off
-			if( (input.key & KEY_X) && SOUND_OK) {SOUND_ON=!SOUND_ON;keypressed=true;soundtyp=1;}
+			if( (input.key & KEY_A) && SOUND_OK) {SOUND_ON=!SOUND_ON;keypressed=true;soundtyp=1;}
 /*			else if( (diks[203] & 0x80) && SOUND_OK ) {SOUND_ON=!SOUND_ON;keypressed=true;soundtyp=1;}
 			else if( (diks[75] & 0x80) && SOUND_OK ) {SOUND_ON=!SOUND_ON;keypressed=true;soundtyp=1;}
 			else if( (diks[77] & 0x80) && SOUND_OK ) {SOUND_ON=!SOUND_ON;keypressed=true;soundtyp=1;}
@@ -2420,7 +2420,7 @@ void drawMenu(int rx,int ry) {
 			}
 */		}
 		if (newselect==6 || leavgam) { //back to main menu
-			if (input.key & KEY_X) { 
+			if (input.key & KEY_A) { 
 				{Menu=FALSE;MainMenu=TRUE;Maininit=FALSE;blitSpielfeld();keypressed=true;
 				newselect=15;returnx=-1;oldlevel=-1;soundtyp=1;}
 			}
@@ -2558,7 +2558,7 @@ void drawMainMenu(int rx,int ry) {
 	if (!showinfo) {
 			if (!keypressed) {
 				if (newselect==1) {	//start game
-					if (input.key & KEY_X) { 
+					if (input.key & KEY_A) { 
 						restart=TRUE;
 						Menu=FALSE;MainMenu=FALSE;Maininit=FALSE;
 						actlevel=1;
@@ -2593,13 +2593,13 @@ void drawMainMenu(int rx,int ry) {
 					if( (input.key & KEY_LEFT) && GAMESPEED<55 ) {GAMESPEED+=1;keypressed=true;soundtyp=1;}
 				}
 				if (newselect==8) {
-					if( (input.key & KEY_X) && MUSIC_OK ) {MUSIC_ON=!MUSIC_ON;keypressed=true;soundtyp=1;}
+					if( (input.key & KEY_A) && MUSIC_OK ) {MUSIC_ON=!MUSIC_ON;keypressed=true;soundtyp=1;}
 				}
 				if (newselect==9) {
-					if( (input.key & KEY_X) && SOUND_OK ) {SOUND_ON=!SOUND_ON;keypressed=true;soundtyp=1;}
+					if( (input.key & KEY_A) && SOUND_OK ) {SOUND_ON=!SOUND_ON;keypressed=true;soundtyp=1;}
 				}
 				if (newselect==10) { //instructions
-					if (input.key & KEY_X) {
+					if (input.key & KEY_A) {
 						int x,y;			
 						for (y=5;y<=12;y++) {
 							for (x=5;x<=11;x++) {
@@ -2618,7 +2618,7 @@ void drawMainMenu(int rx,int ry) {
 					}
 				}
 				if (newselect==11) { //end game
-					if (input.key & KEY_X) {
+					if (input.key & KEY_A) {
 						killGame=true;
 					}
 				}
@@ -2629,7 +2629,7 @@ void drawMainMenu(int rx,int ry) {
 			if (newselect<1) newselect=11;
 			if (newselect>11) newselect=1;
 
-			if (input.key & KEY_X) {
+			if (input.key & KEY_A) {
 				if (newselect >=2 && newselect <=6 && !keypressed) {gameselect=newselect-2;soundtyp=1;keypressed=true;}
 			}
 	blitSkull();
@@ -2711,9 +2711,9 @@ void drawFps(LPDIRECTDRAWSURFACE7 ptr,int ox,int oy) {
 void waitforSpace() {
 	BYTE    diks[256];
 //	Keyboard->GetDeviceState( sizeof(diks), &diks );
-	if (spacewait==3 && (input.key & KEY_X)) spacewait=2;
-	else if (spacewait==2 && (input.key & KEY_X)) spacewait=1;
-	else if (spacewait==1 && (input.key ^ KEY_X)) spacewait=0;
+	if (spacewait==3 && (input.key & KEY_A)) spacewait=2;
+	else if (spacewait==2 && (input.key & KEY_A)) spacewait=1;
+	else if (spacewait==1 && (input.key ^ KEY_A)) spacewait=0;
 }
 
 // push SPACE or SHIFT ! zeichnen
@@ -3760,7 +3760,6 @@ int InitApp()
 int main(int argc, char **argv)
 {
 //    MSG                         msg;
-	
 	
 	videoInit();
 	tileSurface = videoLoadTexture("assets.bin", 1);
