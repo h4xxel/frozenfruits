@@ -8,7 +8,7 @@
 #define COLOURDEPTH_DEPTH_SIZE		16
 
 
-#define		SCREEN_GRAN_W		2.0f/800
+#define		SCREEN_GRAN_W		2.0f/640
 #define		SCREEN_GRAN_H		2.0f/480
 
 
