@@ -10,8 +10,8 @@
 	#define KEYMAP_A SDLK_HOME
 	#define KEYMAP_B SDLK_END
 	//menu keys
-	#define KEYMAP_START SDLK_RALT
-	#define KEYMAP_SELECT SDLK_LALT
+	#define KEYMAP_START SDLK_LALT
+	#define KEYMAP_SELECT SDLK_LCTRL
 #else
 	//movement
 	#define KEYMAP_UP SDLK_UP
