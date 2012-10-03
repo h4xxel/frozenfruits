@@ -1,7 +1,7 @@
 #include "sgputil.h"
 
 #define MAGIC_1         0x0DF0EFBE
-#define MAGIC_2         0x22FF005B
+#define MAGIC_2         0x22FF005A
 
 #define COMPRESSION_GZIP 0x1
 #define	COMPRESSION_LZMA 0x2
@@ -24,7 +24,6 @@ typedef struct {
         unsigned int    zlen;
         unsigned int    len;
         unsigned int    dataindex;
-	unsigned int	flags;
 } SNSBBFZ_HEADER;
 
 
@@ -33,7 +32,6 @@ typedef struct {
         FILE            *head;
         unsigned int    len;
         unsigned int    headlen;
-	unsigned int	flags;
 } SNSBBFZ_SFILES;
 
 
@@ -729,8 +727,8 @@ broken			hh->flags = COMPRESSION_BZIP;
 		} else { */
 			hh->zlen = gziplen;
 			fprintf(stderr, "GZIP Length: %i\n", gziplen);
-			hh->flags = COMPRESSION_GZIP;
-			file->sfiles[i].flags = COMPRESSION_GZIP;
+			//hh->flags = COMPRESSION_GZIP;
+			//file->sfiles[i].flags = COMPRESSION_GZIP;
 //		}
 		
 		free(fileData);
