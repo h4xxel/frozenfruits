@@ -7,7 +7,7 @@ default:
 	$(CXX) $(CFLAGS) -w -g -O0 $(TARGET) $(SRC) `sdl-config --cflags` `sdl-config --libs` $(LDFLAGS) -lGL
 
 pandora:
-	$(CC) $(CFLAGS) $(TARGET) $(SRC) $(LDFLAGS) -lGLES_CM -lEGL -lX11
+	$(CXX) $(CFLAGS) $(TARGET) $(SRC) $(LDFLAGS) -lGLES_CM -lEGL -lX11
 
 
 clean:
