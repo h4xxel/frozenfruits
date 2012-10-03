@@ -25,6 +25,21 @@ float	GAMESPEED=15.0;
 
 void killGamePl0x();
 
+const char *music[]={
+	"music/ansarecieva.ogg",
+	"music/dunno.ogg",
+	"music/stacid.ogg",
+	"music/techno6.ogg",
+	"music/techrain.ogg",
+	"music/upii.ogg",
+	"music/chinite2.ogg",
+	"music/max.ogg",
+	"music/techno4.ogg",
+	"music/techno8.ogg",
+	"music/ugot2.ogg",
+};
+
+int music_current=0;
 
 //-----------------------------------------------------------------------------
 // File: CilloMain.CPP
@@ -53,6 +68,8 @@ void killGamePl0x();
 
 #include "sgputil.h"
 
+#include <SDL_mixer.h>
+
 /*#include "ddutil.h"
 #include "resource.h"*/
 
@@ -74,6 +91,8 @@ void killGamePl0x();
 /****
  ** Stuff used by the SDL/OpenGL conversion
  ****/
+
+Mix_Music *mix_music=NULL;
 
 bool	killGame=false;
 #include "SDL_render.h"
@@ -129,11 +148,6 @@ TEXTURE				tileSurface;
 TEXTURE				background;
 TEXTURE				skullimage;
 //TEXTURE				titelbild;
-
-boolean MUSIC_OK=true;
-boolean SOUND_OK=true;
-boolean MUSIC_ON=true;
-boolean SOUND_ON=true;
 
 /*
 // Musikdaten
@@ -303,6 +317,9 @@ bool	werbungaus=false;
 
 void killGamePl0x() {
 	/* Stub so far */
+	Mix_CloseAudio();
+	while(Mix_Init(0))
+		Mix_Quit();
 	SDL_Quit();
 }
 
@@ -2742,7 +2759,7 @@ void blitSpacewait(int sx,int sy) {
 
 // spiel die musik (0-11)
 void checkMusic() {
-/*	static DWORD stoptime=-1;
+	/*static DWORD stoptime=-1;
 	bool playing=false;
 	if (pPerf->IsPlaying(pSegment, NULL) == S_OK) playing=true;
 	if (playing) stoptime=0;
@@ -2806,8 +2823,25 @@ void checkMusic() {
 				}	
 			}//time>...
 		}//isPlaying
+	}*/
+	if(MUSIC_ON) {
+		if(Mix_PausedMusic()) {
+			Mix_ResumeMusic();
+		}
+		if(!Mix_PlayingMusic()) {
+			if(mix_music!=NULL) {
+				Mix_FreeMusic(mix_music);
+				mix_music=NULL;
+			}
+			mix_music=Mix_LoadMUS(music[music_current]);
+			Mix_PlayMusic(mix_music, 1);
+			music_current=music_current>=sizeof(music)/sizeof(char *)-1?0:music_current+1;
+		}
+		
+	} else if(Mix_PlayingMusic()&&!Mix_PausedMusic()) {
+		Mix_PauseMusic();
 	}
-*/}
+}
 
 
 // Restore alle Surfaces
@@ -3310,7 +3344,7 @@ void cilloMain() {
 
 		flipzaehler+=1;
 
-		checkMusic(); //spielt midi noch?
+		if(MUSIC_OK) checkMusic(); //spielt midi noch?
 
 		BYTE    diks[256];
 //		Keyboard->GetDeviceState( sizeof(diks), &diks ); 
@@ -3762,6 +3796,7 @@ int main(int argc, char **argv)
 //    MSG                         msg;
 	
 	videoInit();
+	soundInit();
 	tileSurface = videoLoadTexture("assets.bin", 1);
 	background = videoLoadTexture("assets.bin", 2);
 	skullimage = videoLoadTexture("assets.bin", 3);

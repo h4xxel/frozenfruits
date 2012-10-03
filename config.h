@@ -1,3 +1,6 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
 #ifdef PANDORA
 	//movement
 	#define KEYMAP_UP SDLK_UP
@@ -26,4 +29,11 @@
 	//menu keys
 	#define KEYMAP_START SDLK_ESCAPE
 	#define KEYMAP_SELECT SDLK_F10
+#endif
+
+int MUSIC_OK=1;
+int SOUND_OK=1;
+int MUSIC_ON=1;
+int SOUND_ON=1;
+
 #endif
