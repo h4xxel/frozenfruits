@@ -15,7 +15,7 @@ pandora:
 base:
 	$(RAWTOOL) graphics/skullimage.png skullimage.raw
 	$(RAWTOOL) graphics/background.png background.raw
-	cp icon.png ../bin
+	cp icon.bmp ../bin
 
 clean:
 	rm -Rf *.raw
