@@ -26,17 +26,17 @@ float	GAMESPEED=15.0;
 void killGamePl0x();
 
 const char *music[]={
-	"music/upii.ogg",
-	"music/chinite2.ogg",
-	"music/dunno.ogg",
-	"music/max.ogg",
-	"music/stacid.ogg",
-	"music/techno4.ogg",
-	"music/techno6.ogg",
-	"music/techno8.ogg",
 	"music/techrain.ogg",
-	"music/ugot2.ogg",
+	"music/techno4.ogg",
 	"music/ansarecieva.ogg",
+	"music/techno6.ogg",
+	"music/stacid.ogg",
+	"music/max.ogg",
+	"music/ugot2.ogg",
+	"music/chinite2.ogg",
+	"music/techno8.ogg",
+	"music/dunno.ogg",
+	"music/upii.ogg",
 };
 
 int music_current=0;
