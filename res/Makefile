@@ -6,6 +6,7 @@ default:
 	$(RAWTOOL) graphics/fruitmap.png fruitmap.raw
 	$(PACKTOOL) assets.list ../bin/assets.bin
 	cp -a music ../bin
+	rm -f assets.list
 
 base:
 	$(RAWTOOL) graphics/skullimage.png skullimage.raw
