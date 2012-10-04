@@ -24,6 +24,7 @@ float	GAMESPEED=15.0;
 #define			DWORD			int
 
 void killGamePl0x();
+void saveGames();
 
 const char *music[]={
 	"music/techrain.ogg",
@@ -320,6 +321,7 @@ bool	werbungaus=false;
 void killGamePl0x() {
 	/* Stub so far */
 	Mix_CloseAudio();
+	saveGames();
 	#ifndef MAEMO
 	while(Mix_Init(0))
 		Mix_Quit();
@@ -466,20 +468,28 @@ void loadGames() {
 		return;
 	}
 
-	std::ifstream InFile;
+	FILE *fp;
 	char filena[]="savegame.dat";
 	char file[35*5];
+	char bools[2];
 	int i;
-	for (i=0;i<=(35*5)-1;i++) {
+	for (i=0;i<=(35*5)-1;i++)
 		file[i]=(char)1;
-	}
-	InFile.open(filena,std::ios::binary);
-	InFile.read(file,35*5);
-	InFile.close();
+	for (i=0;i<2;i++)
+		bools[i] = 1;
+
+	if ((fp = fopen(filena, "rb")) == NULL)
+		return;
+	fread(file, 35, 5, fp);
+	fread((void *) &GAMESPEED, 4, 1, fp);
+	fread((void *) bools, 2, 1, fp);
+	fclose(fp);
 	for (i=0;i<=(35*5)-1;i++) {
 		savegames[i]=(int)file[i];
 		if (savegames[i]>1 || savegames[i]<0) savegames[i]=1;
 	}
+	MUSIC_ON = bools[0];
+	SOUND_ON = bools[1];
 }
 
 // Spielstände speichern, CD version
@@ -504,15 +514,26 @@ void saveGames() {
 		return;
 	}
 	char filena[]="savegame.dat";
-	std::ofstream OutFile(filena,std::ios::binary);
+	FILE *fp;
+
+	if ((fp = fopen(filena, "wb")) == NULL) {
+		fprintf(stderr, "save failed\n");
+		return;
+	}
 	char file[35*5];
+	char bools[2];
 	int i;
+	bools[0] = MUSIC_ON;
+	bools[1] = SOUND_ON;
+
 	for (i=0;i<=(35*5)-1;i++) {
 		file[i]=(char)savegames[i];
 		if (savegames[i]>1 || savegames[i]<0) savegames[i]=1;
-	}	
-	OutFile.write(file,35*5);
-	OutFile.close();
+	}
+	fwrite(file, 35, 5, fp);
+	fwrite(&GAMESPEED, 4, 1, fp);
+	fwrite(bools, 2, 1, fp);
+	fclose(fp);
 }
 
 // Zähle Anz.Sterne des Savegames Nr.x
