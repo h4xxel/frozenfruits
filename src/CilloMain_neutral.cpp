@@ -23,6 +23,9 @@ float	GAMESPEED=15.0;
 #define			VOID			void
 #define			DWORD			int
 
+#define			LINUX_DESKTOP_DATA_PATH	"/usr/share/frozenfruits"
+
+
 void killGamePl0x();
 void saveGames();
 
@@ -213,6 +216,8 @@ int tick,lasttick;
 
 int frmtick,frmlast;
 float framespeed;
+const char *savefile;
+int level_index;
 
 int collast=0;
 
@@ -473,7 +478,6 @@ void loadGames() {
 	}
 
 	FILE *fp;
-	char filena[]="savegame.dat";
 	char file[35*5];
 	char bools[2];
 	int i;
@@ -482,7 +486,7 @@ void loadGames() {
 	for (i=0;i<2;i++)
 		bools[i] = 1;
 
-	if ((fp = fopen(filena, "rb")) == NULL);
+	if ((fp = fopen(savefile, "rb")) == NULL);
 	else {
 		fread(file, 35, 5, fp);
 		fread((void *) &GAMESPEED, 4, 1, fp);
@@ -518,10 +522,9 @@ void saveGames() {
 		saveGames_CD();
 		return;
 	}
-	char filena[]="savegame.dat";
 	FILE *fp;
 
-	if ((fp = fopen(filena, "wb")) == NULL) {
+	if ((fp = fopen(savefile, "wb")) == NULL) {
 		fprintf(stderr, "save failed\n");
 		return;
 	}
@@ -583,7 +586,8 @@ void loadLevels() {
 //	if (hResInfo==NULL) showinfo=true;
 //	hResData = LoadResource( hMod, hResInfo);
 //	pLevels = LockResource( hResData);
-	pLVDat = (char *) snsbbfzGetData(assets, 0, (unsigned int *) &sz);
+	if (level_index > -1)
+		pLVDat = (char *) snsbbfzGetData(assets, level_index, (unsigned int *) &sz);
 	
 	for (int i=1;i<=481*39;i++) {
 		allelevels[i-1]=*pLVDat++;
@@ -3849,7 +3853,15 @@ int InitApp()
 int main(int argc, char **argv)
 {
 //    MSG                         msg;
-	
+	if (argc > 1) {
+		if (atoi(argv[1]) == 2)	{		/* Frozen fruits 2 */
+			savefile = "savegame_f2.dat";
+			level_index = 16;
+		}
+	} else {
+			savefile = "savegame.dat";
+			level_index = 0;
+	}
 	assets=snsbbfzOpen("assets.bin");
 	videoInit();
 	soundInit();

@@ -27,6 +27,16 @@ maemo:
 	cd res && make
 
 
+install:
+	mkdir -p /usr/share
+	mkdir -p /usr/share/games
+	mkdir -p /usr/share/games/frozenfruits
+	cp -arv bin/music /usr/share/games/frozenfruits
+	cp -av bin/assets.dat /usr/share/games/frozenfruits
+	mkdir -p /usr/local
+	mkdir -p /usr/local/bin
+	cp -v bin/frozenfruits /usr/local/bin
+
 
 clean:
 	rm -Rf bin
