@@ -31,4 +31,17 @@
 			</category>
 		</categories>
 	</application>
+	<application id="frozenfruits2-slaeshjag-egegheew" appdata="frozenfruits">
+		<title lang="en_US">Frozen Fruits 2</title>
+		<description lang="en_US">A community made levelpack for the FrozenFruits engine, replacing every one of the original versions 35 levels.</description>
+		<version major="2" minor="0" release="0" build="0"/>
+		<exec command="./frozenfruits" arguments="2" background="true" standalone="true"/>
+		<author name="Karli Corporation" website="http://www.blueskied.com/" />
+		<icon src="icon.png"/>
+		<categories>
+			<category name="Game">
+				<subcategory name="LogicGame" />
+			</category>
+		</categories>
+	</application>
 </PXML>	
