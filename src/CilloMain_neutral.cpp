@@ -482,12 +482,13 @@ void loadGames() {
 	for (i=0;i<2;i++)
 		bools[i] = 1;
 
-	if ((fp = fopen(filena, "rb")) == NULL)
-		return;
-	fread(file, 35, 5, fp);
-	fread((void *) &GAMESPEED, 4, 1, fp);
-	fread((void *) bools, 2, 1, fp);
-	fclose(fp);
+	if ((fp = fopen(filena, "rb")) == NULL);
+	else {
+		fread(file, 35, 5, fp);
+		fread((void *) &GAMESPEED, 4, 1, fp);
+		fread((void *) bools, 2, 1, fp);
+		fclose(fp);
+	}
 	for (i=0;i<=(35*5)-1;i++) {
 		savegames[i]=(int)file[i];
 		if (savegames[i]>1 || savegames[i]<0) savegames[i]=1;
