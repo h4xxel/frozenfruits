@@ -320,10 +320,10 @@ bool	werbungaus=false;
 void killGamePl0x() {
 	/* Stub so far */
 	Mix_CloseAudio();
-	#ifndef MAEMO
+	/*#ifndef MAEMO
 	while(Mix_Init(0))
 		Mix_Quit();
-	#endif
+	#endif*/
 	SDL_Quit();
 }
 

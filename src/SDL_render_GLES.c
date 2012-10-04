@@ -76,8 +76,8 @@ int videoInit() {
 		return ERR_OOPS_GENERIC;
 	}
 	
-	SDL_WM_SetCaption("Frozen Fruits", NULL);
 	SDL_WM_SetIcon(SDL_LoadBMP("icon.bmp"), NULL);
+	SDL_WM_SetCaption("Frozen Fruits", "Frozen Fruits");
 	videoInitGL(640, 480);
 
 	#ifdef PANDORA
