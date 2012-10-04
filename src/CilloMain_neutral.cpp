@@ -544,6 +544,18 @@ void saveGames() {
 	fclose(fp);
 }
 
+
+void saveFileName(const char *map_name) {
+	char *str;
+
+	str = (char *) malloc(strlen("%s_savegame.dat") + strlen(map_name));
+	sprintf(str, "%s_savegame.dat", map_name);
+	savefile = str;
+
+	return;
+}
+
+
 // Zähle Anz.Sterne des Savegames Nr.x
 int countStars(int nr) {
 	int anz=0;
@@ -574,7 +586,7 @@ void copyGame(int nr) {
 }
 
 // lade Levels
-void loadLevels() {
+void loadLevels(char *name) {
 /*
 	HMODULE hMod=NULL; // Lade Leveldaten aus Ressourcen
     HRSRC   hResInfo;
@@ -582,6 +594,7 @@ void loadLevels() {
     void*   pLevels;
 	char*	pLVDat;
 	int sz;
+	FILE *fp;
 //    hResInfo = FindResource( hMod, "LEVELS", TEXT("LVL") );
 //	if (hResInfo==NULL) showinfo=true;
 //	hResData = LoadResource( hMod, hResInfo);
@@ -589,6 +602,21 @@ void loadLevels() {
 	if (level_index > -1)
 		pLVDat = (char *) snsbbfzGetData(assets, level_index, (unsigned int *) &sz);
 	
+	else {
+		if ((fp = fopen(name, "rb")) == NULL) {
+			fprintf(stderr, "Unable to open map %s\n", name);
+			exit(-1);
+		}
+	
+		fseek(fp, 0, SEEK_END);
+
+		sz = ftell(fp);
+		fseek(fp, 0, SEEK_SET);
+		pLVDat = (char *) malloc(sz);
+		fread(pLVDat, sz, 1, fp);
+		fclose(fp);
+	}
+
 	for (int i=1;i<=481*39;i++) {
 		allelevels[i-1]=*pLVDat++;
 	}
@@ -3834,7 +3862,6 @@ int InitApp()
 	pSegment=NULL;
 */
 	// Level laden  (levels.dat);
-	loadLevels();
 
 	// Spielfeld
 	initSpielfeld();
@@ -3857,12 +3884,18 @@ int main(int argc, char **argv)
 		if (atoi(argv[1]) == 2)	{		/* Frozen fruits 2 */
 			savefile = "savegame_f2.dat";
 			level_index = 16;
+		} else {
+			saveFileName(argv[1]);
+			level_index = -1;
 		}
 	} else {
 			savefile = "savegame.dat";
 			level_index = 0;
 	}
 	assets=snsbbfzOpen("assets.bin");
+	if (argc > 1) loadLevels(argv[1]);
+	else loadLevels(NULL);
+
 	videoInit();
 	soundInit();
 	InitializeSound();
