@@ -28,6 +28,7 @@ float	GAMESPEED=15.0;
 
 void killGamePl0x();
 void saveGames();
+void copyGame(int);
 
 const char *music[]={
 	"music/techrain.ogg",
@@ -336,6 +337,20 @@ void killGamePl0x() {
 		Mix_Quit();
 	#endif*/
 	SDL_Quit();
+}
+
+
+void setLevel(int level) {
+	if (level > 39) {
+		fprintf(stderr, "Error: Level %i is out of bounds (max: 39)\n", level);
+		exit(-1);
+	}
+	restart=TRUE;
+	Menu=FALSE;MainMenu=FALSE;Maininit=FALSE;
+	actlevel=level;
+	showinfo=FALSE;
+	copyGame(actgame);
+	colreset=true;
 }
 
 
@@ -3911,6 +3926,8 @@ int main(int argc, char **argv)
 	if(InitApp() != 0)
 		return FALSE;
 
+	if (argc > 2)
+		setLevel(atoi(argv[2]));
 	while(1) {
 		/*      if( PeekMessage( &msg, NULL, 0, 0, PM_NOREMOVE ) )
 		      {
