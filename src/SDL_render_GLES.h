@@ -87,6 +87,7 @@ typedef struct {
 
 int videoInit();
 int videoLoop();
+void videoDestroy();
 
 
 #endif

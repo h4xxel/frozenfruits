@@ -193,3 +193,14 @@ void videoClearScreen() {
 	return;
 }
 
+
+void videoDestroy() {
+	if (video.eglSurface || video.eglContext || video.eglDisplay) {
+		eglMakeCurrent(video.eglDisplay, NULL, NULL, EGL_NO_CONTEXT);
+		eglDestroyContext(video.eglDisplay, video.eglContext);
+		eglDestroySurface(video.eglDisplay, video.eglSurface);
+		eglTerminate(video.eglDisplay);
+	}
+
+	return;
+}

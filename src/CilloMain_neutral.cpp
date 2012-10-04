@@ -322,6 +322,10 @@ void killGamePl0x() {
 	/* Stub so far */
 	Mix_CloseAudio();
 	saveGames();
+
+	#ifdef HAVE_GLES
+		videoDestroy();
+	#endif
 	/*#ifndef MAEMO
 	while(Mix_Init(0))
 		Mix_Quit();
