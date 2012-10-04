@@ -19,6 +19,12 @@
 #include	<SDL/SDL.h>
 #include	<SDL/SDL_syswm.h>
 
+#ifdef PANDORA
+	#include <fcntl.h>
+	#include <sys/ioctl.h>
+	#include <stdint.h>
+	#define	FBIO_WAITFORSYNC	_IOW('F', 0x20, uint32_t)
+#endif
 
 
 #define		KEY_LEFT		0x1
@@ -76,6 +82,7 @@ typedef struct {
 	EGLSurface			eglSurface;
 	EGLDisplay			eglDisplay;
 	SDL_Surface			*screen;
+	int				fbdev;
 } VIDEO;
 
 int videoInit();

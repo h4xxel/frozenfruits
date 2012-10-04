@@ -79,7 +79,12 @@ int videoInit() {
 	SDL_WM_SetCaption("Frozen Fruits", NULL);
 	SDL_WM_SetIcon(SDL_LoadBMP("icon.bmp"), NULL);
 	videoInitGL(640, 480);
-	
+
+	#ifdef PANDORA
+		if ((video.fbdev = open("/dev/fb0", O_RDONLY)) < 0)
+			fprintf(stderr, "videoInit(): Unable to open framebuffer device for Vsync\n");
+	#endif
+
 	input.key = 0;
 	
 	return ERR_NONE;
@@ -167,6 +172,14 @@ void videoBlit(TEXTURE tex, RECT *src, int x, int y) {
 
 
 void videoSwapBuffers() {
+	#ifdef PANDORA
+		int n;
+		if (video.fbdev >= 0) {
+			n = 0;
+			ioctl(video.fbdev, FBIO_WAITFORSYNC, &n);
+		}
+	#endif
+
 	eglSwapBuffers(video.eglDisplay, video.eglSurface);
 	
 	glClear(GL_COLOR_BUFFER_BIT);
