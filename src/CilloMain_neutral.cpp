@@ -3270,23 +3270,28 @@ void cilloMain() {
 		if (!Menu && !MainMenu) {
 			switch (viertel) {
 			case 1:
-					if (scrx>0) scrx-=2;
-					if (scry>0) scry-=2;
+					if (scrx>0) scrx-=(((frmtick - frmlast)/20) << 1);
+					if (scry>0) scry-=(((frmtick - frmlast)/20) << 1);
 					break;
 			case 2:
-					if (scrx<160) scrx+=2;
-					if (scry>0) scry-=2;
+					if (scrx<160) scrx+=(((frmtick - frmlast)/20) << 1);
+					if (scry>0) scry-=(((frmtick - frmlast)/20) << 1);
 					break;
 			case 3:
-					if (scrx>0) scrx-=2;
-					if (scry<120) scry+=2;
+					if (scrx>0) scrx-=(((frmtick - frmlast)/20) << 1);
+					if (scry<120) scry+=(((frmtick - frmlast)/20) << 1);
 					break;
 			case 4:
-					if (scrx<160) scrx+=2;
-					if (scry<120) scry+=2;
+					if (scrx<160) scrx+=(((frmtick - frmlast)/20) << 1);
+					if (scry<120) scry+=(((frmtick - frmlast)/20) << 1);
 					break;
 			}
 		}
+
+		if (scry < 0) scry = 0;
+		if (scrx < 0) scrx = 0;
+		if (scry > 120) scry = 120;
+		if (scrx > 160) scrx = 160;
 		else startcounter=0;
 		
 		// zeichne Menu-Farbhintergrund
