@@ -9,12 +9,6 @@
 		<descriptions>
 			<description lang="en_US">Frozen Fruits is an action-packed puzzle game. Where you destroy blocks by controlling your vertically bouncing ball by controlling its horizontal movement.</description>
 		</descriptions> 
-		<previewpics>
-			<pic src="previewpics/preview1.png"/>
-			<pic src="previewpics/preview2.png"/>
-			<pic src="previewpics/preview3.png"/>
-			<pic src="previewpics/preview4.png"/>
-		</previewpics>
 		<icon src="icon.png" />
 	</package>
 	
@@ -25,6 +19,12 @@
 		<exec command="./frozenfruits" background="true" standalone="true"/>
 		<author name="Karli Corporation" website="http://www.blueskied.com/" />
 		<icon src="icon.png"/>
+		<previewpics>
+			<pic src="previewpics/preview1.png"/>
+			<pic src="previewpics/preview2.png"/>
+			<pic src="previewpics/preview3.png"/>
+			<pic src="previewpics/preview4.png"/>
+		</previewpics>
 		<categories>
 			<category name="Game">
 				<subcategory name="LogicGame" />
