@@ -12,6 +12,7 @@ pandora:
 	cd tools && make
 	cp res/assets_pandora.list res/assets.list
 	cd res && make
+	cp -R res/pandora/* bin/
 	mksquashfs bin/* frozenfruits.pnd
 	cat res/pandora/PXML.xml >> frozenfruits.pnd
 	cat res/pandora/icon.png >> frozenfruits.pnd
