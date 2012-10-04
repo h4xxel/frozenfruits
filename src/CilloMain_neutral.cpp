@@ -1132,7 +1132,7 @@ void blitInstructions() {
 	blitString("                          game control",FALSE);
 	blitString("                          ------------",FALSE);
 	blitString("              use the d-pad to move the ball left or right",FALSE);
-	blitString("                thrust - (x)    delete savegame - del",FALSE);
+	blitString("                thrust - (x)    delete savegame - (y)",FALSE);
 	blitString("                 back to menu - start",FALSE);
 	#elif defined(MAEMO)
 	blitString("",FALSE);
