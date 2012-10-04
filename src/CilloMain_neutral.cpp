@@ -1320,7 +1320,6 @@ int getTile(int x,int y) {
 void initMainMenu() {
 	int x,y;
 	int ct=0;
-	
 	// Menu Background
 	for (y=1;y<=18;y++) {
 		for (x=1;x<=24;x++) {
@@ -2093,7 +2092,7 @@ void killSpieler(int dx,int dy) {
 		}
 	}
 	else if (sprites->a>=80) {  // zeige Menu
-		int a,b;
+		/*int a,b;
 		for (b=7;b<=9;b++) {
 			for (a=6;a<=11;a++) {
 				blitTile(a+dx/33,b+dy/30,122, 0, 0);
@@ -2110,7 +2109,7 @@ void killSpieler(int dx,int dy) {
 		blitTile(6+dx/33,6+dy/30,151, 0, 0);
 		blitTile(12+dx/33,6+dy/30,152, 0, 0);
 		blitTile(6+dx/33,10+dy/30,153, 0, 0);
-		blitTile(12+dx/33,10+dy/30,195, 0, 0);		
+		blitTile(12+dx/33,10+dy/30,195, 0, 0);	*/	
 		MenuType=FALSE;Menu=TRUE;}//{initSpielfeld();blitSpielfeld();}
 }
 
@@ -2217,7 +2216,7 @@ void moveSpieler(int dx,int dy) {
 
 	if (!nomenupress) {
 		if (input.key & KEY_START) {	// ESC/Return gedrückt->zeige Menü
-			int x,y;
+			/*int x,y;
 			for (y=7;y<=10;y++) {
 				for (x=6;x<=11;x++) {
 					blitTile(x+dx/33,y+dy/30,122, 0, 0);
@@ -2234,7 +2233,7 @@ void moveSpieler(int dx,int dy) {
 			blitTile(6+dx/33,6+dy/30,151, 0, 0);
 			blitTile(12+dx/33,6+dy/30,152, 0, 0);
 			blitTile(6+dx/33,11+dy/30,153, 0, 0);
-			blitTile(12+dx/33,11+dy/30,195, 0, 0);
+			blitTile(12+dx/33,11+dy/30,195, 0, 0);*/
 			MenuType=TRUE;
 			Menu=TRUE;
 		}
@@ -2328,31 +2327,30 @@ void drawMenu(int rx,int ry) {
 	int mod=0;
 	
 	// Menu Background
-	int x, y;
+	int x, y, k=(int)(!MenuType);
 	/*for (y=1;y<=18;y++) {
 		for (x=1;x<=24;x++) {
 			blitTile2(x*33, y*30, 137);
 		}
 	}*/
-	for (y=7;y<=10;y++) {
+	for (y=7;y<=10-k;y++) {
 		for (x=7;x<=11;x++) {
 			blitTile2(x*33, y*30, 122);
 		}
 	}
 	for (x=7;x<=11;x++) {
 		blitTile2(x*33, 6*30, 149);
-		blitTile2(x*33, 11*30, 150);
+		blitTile2(x*33, (11-k)*30, 150);
 	}
-	for (y=7;y<=10;y++) {
+	for (y=7;y<=10-k;y++) {
 		blitTile2(6*33, y*30, 138);
 		blitTile2(12*33, y*30, 139);
 	}
 	blitTile2(6*33, 6*30, 151);
 	blitTile2(12*33, 6*30, 152);
-	blitTile2(6*33, 11*30, 153);
-	blitTile2(12*33, 11*30, 195);
+	blitTile2(6*33, (11-k)*30, 153);
+	blitTile2(12*33, (11-k)*30, 195);
 	//---------------
-	
 	for (i=a;i<=6;i++) {
 		chosen=FALSE;
 		mod=0;
