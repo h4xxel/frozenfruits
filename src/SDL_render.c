@@ -23,6 +23,8 @@ void soundInit() {
 		SOUND_OK=0;
 	}
 	
+	Mix_VolumeMusic(0.8*MIX_MAX_VOLUME);
+	
 	Mix_AllocateChannels(8);
 }
 
