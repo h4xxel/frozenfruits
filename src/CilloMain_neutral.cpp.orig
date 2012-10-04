@@ -321,8 +321,12 @@ bool	werbungaus=false;
 void killGamePl0x() {
 	/* Stub so far */
 	Mix_CloseAudio();
-	saveGames();
+<<<<<<< HEAD
 	/*#ifndef MAEMO
+=======
+	saveGames();
+	#ifndef MAEMO
+>>>>>>> dca794d6236404b6e3169c8436e33b258808cd68
 	while(Mix_Init(0))
 		Mix_Quit();
 	#endif*/
