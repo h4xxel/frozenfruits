@@ -1,7 +1,7 @@
 LDFLAGS += -lSDL_mixer -lSDL -lz -L.
 SRC = sgputil.c CilloMain_neutral.cpp
 TARGET = -o ../bin/frozenfruits
-CFLAGS += -I/usr/include/SDL/
+CFLAGS += -I/usr/include/SDL/ -g -O0
 
 default:
 	$(CXX) $(CFLAGS) -w -O0 $(TARGET) $(SRC) `sdl-config --cflags` `sdl-config --libs` $(LDFLAGS) -lGL

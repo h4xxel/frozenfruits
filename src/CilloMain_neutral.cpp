@@ -565,7 +565,7 @@ void saveFileName(char *map_name) {
 	#ifdef PANDORA
 	char savedir[]="";
 	#else
-	char savedir[strlen(getenv("HOME")+2+strlen(".frozenfruits/"))];
+	char savedir[strlen(getenv("HOME"))+3+strlen(".frozenfruits/")];
 	sprintf(savedir, "%s/.frozenfruits/", getenv("HOME"));
 	#endif
 	
@@ -3930,7 +3930,7 @@ int main(int argc, char **argv)
 	} else {
 			//savefile = "savegame.dat";
 			level_index = 0;
-			saveFileName("1");
+			saveFileName("file1");
 			loadLevels(NULL);
 	}
 	
