@@ -64,6 +64,7 @@ int music_current=0;
 #include <ddraw.h>
 #include <dinput.h>*/
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdarg.h>
 #include <math.h>
 #include <stdlib.h>
@@ -74,6 +75,8 @@ int music_current=0;
 #include "sgputil.h"
 
 #include <SDL_mixer.h>
+#include <sys/stat.h>
+#include <libgen.h>
 
 /*#include "ddutil.h"
 #include "resource.h"*/
@@ -217,7 +220,7 @@ int tick,lasttick;
 
 int frmtick,frmlast;
 float framespeed;
-const char *savefile;
+char *savefile;
 int level_index;
 
 int collast=0;
@@ -318,8 +321,6 @@ bool	nomenupress=false;
 
 bool	werbunggezeichnet=false;
 bool	werbungaus=false;
-
-
 
 //--------------------------------------------
 
@@ -560,11 +561,20 @@ void saveGames() {
 }
 
 
-void saveFileName(const char *map_name) {
+void saveFileName(char *map_name) {
+	#ifdef PANDORA
+	char savedir[]="";
+	#else
+	char savedir[strlen(getenv("HOME")+2+strlen(".frozenfruits/"))];
+	sprintf(savedir, "%s/.frozenfruits/", getenv("HOME"));
+	#endif
+	
+	mkdir(savedir, S_IRWXU);
+	
 	char *str;
 
-	str = (char *) malloc(strlen("%s_savegame.dat") + strlen(map_name));
-	sprintf(str, "%s_savegame.dat", map_name);
+	str = (char *) malloc(strlen("%s_savegame.dat") + strlen(basename(map_name))+strlen(savedir));
+	sprintf(str, "%s%s_savegame.dat", savedir, basename(map_name));
 	savefile = str;
 
 	return;
@@ -3900,22 +3910,30 @@ int InitApp()
 int main(int argc, char **argv)
 {
 //    MSG                         msg;
+
+	assets=snsbbfzOpen("assets.bin")  ;
 	if (argc > 1) {
-		if (atoi(argv[1]) == 2)	{		/* Frozen fruits 2 */
-			savefile = "savegame_f2.dat";
+		if (strcmp(argv[1], "-h")==0||strcmp(argv[1], "--help")==0) {
+			printf("Frozen Fruits\nAn action-packed puzzle game\n\nUsage:\n");
+			printf("frozenfruits            Start Frozen Fruits\nfrozenfruits -2         Start Frozen Fruits 2 map pack\nfrozenfruits map.dat    Start Frozen Fruits with custom map pack\nfrozenfruits -h         Show help\n");
+			return 0;
+		} else if (strcmp(argv[1], "-2")==0)	{		/* Frozen fruits 2 */
+			//savefile = "savegame_f2.dat";
 			level_index = 16;
+			saveFileName("2");
+			loadLevels(NULL);
 		} else {
-			saveFileName(argv[1]);
 			level_index = -1;
+			saveFileName(argv[1]);
+			loadLevels(argv[1]);
 		}
 	} else {
-			savefile = "savegame.dat";
+			//savefile = "savegame.dat";
 			level_index = 0;
+			saveFileName("1");
+			loadLevels(NULL);
 	}
-	assets=snsbbfzOpen("assets.bin");
-	if (argc > 1) loadLevels(argv[1]);
-	else loadLevels(NULL);
-
+	
 	videoInit();
 	soundInit();
 	InitializeSound();
