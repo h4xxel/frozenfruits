@@ -14,6 +14,7 @@ base:
 	$(RAWTOOL) graphics/fruitmap_pandora.png fruitmap_pandora.raw
 	cp icon.bmp ../bin
 	cp pandora/icon.png ../bin
+	cp icon.png ../bin/icon48.png
 
 clean:
 	rm -Rf *.raw
