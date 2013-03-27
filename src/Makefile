@@ -15,8 +15,8 @@ maemo:
 rpi:
 	$(CXX) $(CFLAGS) $(TARGET) $(SRC) $(LDFLAGS) -w -O2 -DRPI -DHAVE_GLES -lEGL -lGLES_CM -lX11 -DHAVE_LIBOPENMAX=2 -DOMX -DOMX_SKIP64BIT \
 		-ftree-vectorize -pipe -DUSE_EXTERNAL_OMX -DHAVE_LIBBCM_HOST -DUSE_EXTERNAL_LIBBCM_HOST -DUSE_VCHIQ_ARM -Wno-psabi \
-		-I$(SDKSTAGE)/opt/vc/include/ -I$(SDKSTAGE)/opt/vc/include/interface/vcos/pthreads -I$(SDKSTAGE)/opt/vc/include/interface/vmcs_host/linux -I./ -I../libs/ilclient -I../libs/vgfont \
-		`sdl-config --cflags --libs` -lGLESv2 -lEGL -lopenmaxil -lbcm_host -lvcos -lvchiq_arm -lpthread -lrt -L../libs/ilclient -L../libs/vgfont
+		-I$(SDKSTAGE)/opt/vc/include/ -I$(SDKSTAGE)/opt/vc/include/interface/vcos/pthreads -I$(SDKSTAGE)/opt/vc/include/interface/vmcs_host/linux \
+		`sdl-config --cflags --libs` -L$(SDKSTAGE)/opt/vc/lib -lGLESv2 -lEGL -lopenmaxil -lbcm_host -lvcos -lvchiq_arm -lpthread -lrt
 		
 
 clean:
