@@ -90,8 +90,8 @@ int videoInit() {
 	 
 	dispman_element = vc_dispmanx_element_add(dispman_update, dispman_display, 0/*layer*/, &dst_rect, 0/*src*/, &src_rect, DISPMANX_PROTECTION_NONE, 0 /*alpha*/, 0/*clamp*/, 0/*transform*/);
 	nativewindow.element = dispman_element;
-	nativewindow.width = state->screen_width;
-	nativewindow.height = state->screen_height;
+	nativewindow.width = 640;
+	nativewindow.height = 480;
 	vc_dispmanx_update_submit_sync(dispman_update);
 	
 	if ((video.eglSurface = eglCreateWindowSurface(video.eglDisplay, video.eglConfig, &nativewindow, 0)) == EGL_NO_SURFACE) {
