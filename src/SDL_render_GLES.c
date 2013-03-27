@@ -74,11 +74,6 @@ int videoInit() {
 		return ERR_OOPS_GENERIC;
 	}
 	
-	// create an EGL window surface
-	if(graphics_get_display_size(0 /* LCD */, &state->screen_width, &state->screen_height)<0) {
-		fprintf(stderr, "videoInit(): Fatal error: Unable to open EGL display\n");
-	}
-	
 	#ifdef RPI
 	dst_rect.x = 0;
 	dst_rect.y = 0;
