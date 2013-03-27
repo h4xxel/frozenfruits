@@ -58,7 +58,11 @@ int videoInit() {
 		fprintf(stderr, "videoInit(): Fatal error: Unable to initialize EGL\n");
 		return ERR_OOPS_GENERIC;
 	}
+	#ifdef RPI
+	if ((video.screen = SDL_SetVideoMode(640, 480, 16, SDL_SWSURFACE)) == NULL) {
+	#else
 	if ((video.screen = SDL_SetVideoMode(640, 480, 16, SDL_SWSURFACE | SDL_FULLSCREEN)) == NULL) {
+	#endif
 		fprintf(stderr, "videoInit(): Fatal error: Unable to set up a window for SDL\n");
 		return ERR_OOPS_GENERIC;
 	}
