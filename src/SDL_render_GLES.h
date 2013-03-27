@@ -16,7 +16,9 @@
 #endif
 
 #include	<X11/Xutil.h>
+#ifndef RPI
 #include	<GLES/egl.h>
+#endif
 #include	<EGL/egl.h>
 #include	<GLES/gl.h>
 #include	<SDL/SDL.h>
