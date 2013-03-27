@@ -11,6 +11,9 @@
 #define		SCREEN_GRAN_W		2.0f/640
 #define		SCREEN_GRAN_H		2.0f/480
 
+#ifdef RPI
+	#include "bcm_host.h"
+#endif
 
 #include	<X11/Xutil.h>
 #include	<GLES/egl.h>
@@ -67,6 +70,11 @@ static const EGLint egl_config_attrib[] = {
 	EGL_GREEN_SIZE,			COLOURDEPTH_GREEN_SIZE,
 	EGL_BLUE_SIZE,			COLOURDEPTH_BLUE_SIZE,
 	EGL_DEPTH_SIZE,			COLOURDEPTH_DEPTH_SIZE,
+	#elif defined(RPI)
+	EGL_RED_SIZE, 8,
+	EGL_GREEN_SIZE, 8,
+	EGL_BLUE_SIZE, 8,
+	EGL_ALPHA_SIZE, 8,
 	#endif
 	EGL_SURFACE_TYPE,		EGL_WINDOW_BIT,
 	EGL_RENDERABLE_TYPE,		EGL_OPENGL_ES_BIT,

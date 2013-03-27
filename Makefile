@@ -6,6 +6,13 @@ default:
 	cd tools && make
 	cd res && make
 
+rpi:
+	mkdir -p bin
+	cp res/assets_pc.list res/assets.list
+	cd src && make rpi
+	cd tools && make
+	cd res && make
+
 pandora:
 	mkdir -p bin
 	cd src && make pandora
@@ -32,7 +39,7 @@ install:
 	mkdir -p /usr/share/games
 	mkdir -p /usr/share/games/frozenfruits
 	cp -arv bin/music /usr/share/games/frozenfruits
-	cp -av bin/assets.dat /usr/share/games/frozenfruits
+	cp -av bin/assets.bin /usr/share/games/frozenfruits
 	mkdir -p /usr/local
 	mkdir -p /usr/local/bin
 	cp -v bin/frozenfruits /usr/local/bin
