@@ -26,6 +26,10 @@ int videoInit() {
 	SDL_SysWMinfo sysinfo;
 	EGLint contextParams[] = {EGL_CONTEXT_CLIENT_VERSION, 1, EGL_NONE};
 	
+	#ifdef RPI
+	bcm_host_init();
+	#endif
+	
 	/* here goes SDL init code */
 	SDL_Init(SDL_INIT_EVERYTHING);
 	
@@ -34,7 +38,18 @@ int videoInit() {
 		return ERR_OOPS_GENERIC;
 	}
 	
+	#ifdef RPI
+	static EGL_DISPMANX_WINDOW_T nativewindow;
+	DISPMANX_ELEMENT_HANDLE_T dispman_element;
+	DISPMANX_DISPLAY_HANDLE_T dispman_display;
+	DISPMANX_UPDATE_HANDLE_T dispman_update;
+	VC_RECT_T dst_rect;
+	VC_RECT_T src_rect;
+	
+	if (!(video.eglDisplay = eglGetDisplay(EGL_DEFAULT_DISPLAY))) {
+	#else
 	if (!(video.eglDisplay = eglGetDisplay((EGLNativeDisplayType) video.XDisplay))) {
+	#endif
 		fprintf(stderr, "videoInit(): Fatal error: Unable to get a display assets from EGL\n");
 		return ERR_OOPS_GENERIC;
 	}
@@ -59,7 +74,35 @@ int videoInit() {
 		return ERR_OOPS_GENERIC;
 	}
 	
+	// create an EGL window surface
+	if(graphics_get_display_size(0 /* LCD */, &state->screen_width, &state->screen_height)<0) {
+		fprintf(stderr, "videoInit(): Fatal error: Unable to open EGL display\n");
+	}
+	
+	#ifdef RPI
+	dst_rect.x = 0;
+	dst_rect.y = 0;
+	dst_rect.width = 640;
+	dst_rect.height = 480;
+
+	src_rect.x = 0;
+	src_rect.y = 0;
+	src_rect.width = 640 << 16;
+	src_rect.height = 480 << 16;
+
+	dispman_display = vc_dispmanx_display_open(0 /* LCD */);
+	dispman_update = vc_dispmanx_update_start(0);
+	 
+	dispman_element = vc_dispmanx_element_add(dispman_update, dispman_display, 0/*layer*/, &dst_rect, 0/*src*/, &src_rect, DISPMANX_PROTECTION_NONE, 0 /*alpha*/, 0/*clamp*/, 0/*transform*/);
+	nativewindow.element = dispman_element;
+	nativewindow.width = state->screen_width;
+	nativewindow.height = state->screen_height;
+	vc_dispmanx_update_submit_sync(dispman_update);
+	
+	if ((video.eglSurface = eglCreateWindowSurface(video.eglDisplay, video.eglConfig, &nativewindow, 0)) == EGL_NO_SURFACE) {
+	#else
 	if ((video.eglSurface = eglCreateWindowSurface(video.eglDisplay, video.eglConfig, (EGLNativeWindowType) sysinfo.info.x11.window, 0)) == EGL_NO_SURFACE) {
+	#endif
 		fprintf(stderr, "videoInit(): Fatal error: Unable to create a EGL surface\n");
 		return ERR_OOPS_GENERIC;
 	}
@@ -85,6 +128,10 @@ int videoInit() {
 	#endif
 
 	input.key = 0;
+	
+	#ifdef RPI
+	SDL_WM_GrabInput(SDL_GRAB_ON);
+	#endif
 	
 	return ERR_NONE;
 }
