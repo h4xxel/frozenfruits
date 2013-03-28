@@ -26,12 +26,12 @@ int videoInit() {
 	/* here goes SDL init code */
 	SDL_Init(SDL_INIT_EVERYTHING);
 	
+	SDL_WM_SetIcon(SDL_LoadBMP("icon.bmp"), NULL);
+	SDL_WM_SetCaption("Frozen Fruits", "Frozen Fruits");
 	if ((video.screen = SDL_SetVideoMode(640, 480, 16, SDL_OPENGL)) == NULL) {
 		fprintf(stderr, "videoInit(): Fatal error: Unable to set up a window for SDL\n");
 		return ERR_OOPS_GENERIC;
 	}
-	SDL_WM_SetIcon(SDL_LoadBMP("icon.bmp"), NULL);
-	SDL_WM_SetCaption("Frozen Fruits", "Frozen Fruits");
 	videoInitGL(640, 480);
 	
 	return ERR_NONE;

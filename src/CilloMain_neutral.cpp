@@ -3295,20 +3295,20 @@ void cilloMain() {
 		if (!Menu && !MainMenu) {
 			switch (viertel) {
 			case 1:
-					if (scrx>0) scrx-=(((frmtick - frmlast)/20) << 1);
-					if (scry>0) scry-=(((frmtick - frmlast)/20) << 1);
+					if (scrx>0) scrx-=(((frmtick - frmlast)/16) << 1);
+					if (scry>0) scry-=(((frmtick - frmlast)/16) << 1);
 					break;
 			case 2:
-					if (scrx<160) scrx+=(((frmtick - frmlast)/20) << 1);
-					if (scry>0) scry-=(((frmtick - frmlast)/20) << 1);
+					if (scrx<160) scrx+=(((frmtick - frmlast)/16) << 1);
+					if (scry>0) scry-=(((frmtick - frmlast)/16) << 1);
 					break;
 			case 3:
-					if (scrx>0) scrx-=(((frmtick - frmlast)/20) << 1);
-					if (scry<120) scry+=(((frmtick - frmlast)/20) << 1);
+					if (scrx>0) scrx-=(((frmtick - frmlast)/16) << 1);
+					if (scry<116) scry+=(((frmtick - frmlast)/16) << 1);
 					break;
 			case 4:
-					if (scrx<160) scrx+=(((frmtick - frmlast)/20) << 1);
-					if (scry<120) scry+=(((frmtick - frmlast)/20) << 1);
+					if (scrx<160) scrx+=(((frmtick - frmlast)/16) << 1);
+					if (scry<116) scry+=(((frmtick - frmlast)/16) << 1);
 					break;
 			}
 		}
